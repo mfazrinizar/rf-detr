@@ -1853,7 +1853,7 @@
 <h1 id="run-an-rf-detr-object-detection-model">Run an RF-DETR Object Detection Model<a class="headerlink" href="#run-an-rf-detr-object-detection-model" title="Permanent link">&para;</a></h1>
 <p>RF-DETR is a real-time transformer architecture for object detection, built on a DINOv2 vision transformer backbone. The base models are trained on the Microsoft COCO dataset and achieve state-of-the-art accuracy and latency trade-offs.</p>
 <h2 id="pre-trained-checkpoints">Pre-trained Checkpoints<a class="headerlink" href="#pre-trained-checkpoints" title="Permanent link">&para;</a></h2>
-<p>RF-DETR offers model sizes from Nano to 2XLarge, allowing trade-offs between accuracy, latency, and parameter count. All latency numbers were measured on an NVIDIA T4 using TensorRT, FP16, and batch size 1. Core models (Nano to Large) are licensed under Apache 2.0, while XLarge and 2XLarge use the Platform Model License 1.0 and require a Roboflow account.</p>
+<p>RF-DETR offers model sizes from Nano to 2XLarge, allowing trade-offs between accuracy, latency, and parameter count. All latency numbers were measured on an NVIDIA T4 using TensorRT, FP16, and batch size 1. Core models (Nano to Large) are licensed under Apache 2.0. XLarge and 2XLarge (marked with △) are provided by the <a href="https://github.com/roboflow/rf-detr-plus"><code>rfdetr_plus</code></a> extension (<code>pip install rfdetr[plus]</code>) under the Platform Model License 1.0 and require a Roboflow account.</p>
 <table>
 <thead>
 <tr>
@@ -1915,7 +1915,7 @@
 </tr>
 <tr>
 <td style="text-align: center;">XL</td>
-<td style="text-align: center;"><code>RFDETRXLarge</code></td>
+<td style="text-align: center;"><code>RFDETRXLarge</code> △</td>
 <td style="text-align: left;"><code>rfdetr-xlarge</code></td>
 <td style="text-align: center;">77.4</td>
 <td style="text-align: center;">58.6</td>
@@ -1926,7 +1926,7 @@
 </tr>
 <tr>
 <td style="text-align: center;">2XL</td>
-<td style="text-align: center;"><code>RFDETR2XLarge</code></td>
+<td style="text-align: center;"><code>RFDETR2XLarge</code> △</td>
 <td style="text-align: left;"><code>rfdetr-2xlarge</code></td>
 <td style="text-align: center;">78.5</td>
 <td style="text-align: center;">60.1</td>
@@ -1937,6 +1937,9 @@
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>△ Requires the <code>rfdetr_plus</code> extension: <code>pip install rfdetr[plus]</code></p>
+</blockquote>
 <h2 id="run-on-an-image">Run on an Image<a class="headerlink" href="#run-on-an-image" title="Permanent link">&para;</a></h2>
 <p>Perform inference on an image using either the <code>rfdetr</code> package or the <code>inference</code> package. To use a different model size, select the corresponding class or alias from the table above.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">rfdetr</label><label for="__tabbed_1_2">inference</label></div>
