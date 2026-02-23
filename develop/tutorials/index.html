@@ -12,28 +12,26 @@
         <meta name="author" content="Roboflow">
       
       
-        <link rel="canonical" href="https://roboflow.github.io/rf-detr/develop/learn/train/training-parameters/">
+        <link rel="canonical" href="https://roboflow.github.io/rf-detr/develop/tutorials/">
       
       
-        <link rel="prev" href="../dataset-formats/">
+        <link rel="prev" href="../reference/segmentation_train_config/">
       
-      
-        <link rel="next" href="../advanced/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/roboflow-logo.svg">
+      <link rel="icon" href="../assets/roboflow-logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
-        <title>Training Parameters - RF-DETR</title>
+        <title>Tutorials - RF-DETR</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
       
 
@@ -52,11 +50,11 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../../stylesheets/rf.css">
+      <link rel="stylesheet" href="../stylesheets/rf.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -74,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#training-parameters" class="md-skip">
+        <a href="#tutorials" class="md-skip">
           Skip to content
         </a>
       
@@ -102,14 +100,14 @@
 
     <!-- Link to home -->
     <a
-      href="../../.."
+      href=".."
       title="RF-DETR"
       class="md-header__button md-logo"
       aria-label="RF-DETR"
       data-md-component="logo"
     >
       
-  <img src="../../../assets/roboflow-logo.svg" alt="logo">
+  <img src="../assets/roboflow-logo.svg" alt="logo">
 
     </a>
 
@@ -130,7 +128,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis" style="display: flex; align-items: center; gap: 0.5rem;">
             <a
-            href="../../.."
+            href=".."
             title="RF-DETR"
             class="md-header__button md-logo"
             aria-label="RF-DETR"
@@ -138,11 +136,11 @@
             id="item-logo"
             >
             
-  <img src="../../../assets/roboflow-logo.svg" alt="logo">
+  <img src="../assets/roboflow-logo.svg" alt="logo">
 
             </a>
             
-              Training Parameters
+              Tutorials
             
           </span>
         </div>
@@ -308,7 +306,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../.." class="md-tabs__link">
+      <a href=".." class="md-tabs__link">
         
   
   
@@ -325,13 +323,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../install/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../learn/install/" class="md-tabs__link">
           
   
   
@@ -351,7 +347,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../reference/rfdetr/" class="md-tabs__link">
+        <a href="../reference/rfdetr/" class="md-tabs__link">
           
   
   
@@ -367,9 +363,11 @@
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../../../tutorials/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
   
@@ -418,7 +416,9 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -429,9 +429,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="RF-DETR" class="md-nav__button md-logo" aria-label="RF-DETR" data-md-component="logo">
+    <a href=".." title="RF-DETR" class="md-nav__button md-logo" aria-label="RF-DETR" data-md-component="logo">
       
-  <img src="../../../assets/roboflow-logo.svg" alt="logo">
+  <img src="../assets/roboflow-logo.svg" alt="logo">
 
     </a>
     RF-DETR
@@ -458,7 +458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -482,29 +482,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
@@ -522,7 +519,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -540,7 +537,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../install/" class="md-nav__link">
+      <a href="../learn/install/" class="md-nav__link">
         
   
   
@@ -620,7 +617,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../run/detection/" class="md-nav__link">
+      <a href="../learn/run/detection/" class="md-nav__link">
         
   
   
@@ -648,7 +645,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../run/segmentation/" class="md-nav__link">
+      <a href="../learn/run/segmentation/" class="md-nav__link">
         
   
   
@@ -676,7 +673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pretrained/" class="md-nav__link">
+      <a href="../learn/pretrained/" class="md-nav__link">
         
   
   
@@ -709,8 +706,6 @@
                 
   
   
-    
-  
   
   
     
@@ -721,11 +716,13 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
         
           
           <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
@@ -746,7 +743,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -764,7 +761,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../learn/train/" class="md-nav__link">
         
   
   
@@ -792,7 +789,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dataset-formats/" class="md-nav__link">
+      <a href="../learn/train/dataset-formats/" class="md-nav__link">
         
   
   
@@ -817,37 +814,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Training Parameters
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../learn/train/training-parameters/" class="md-nav__link">
         
   
   
@@ -863,215 +833,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#basic-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Basic Example
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#core-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Core Parameters
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Core Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#understanding-batch-size" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Understanding Batch Size
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#learning-rate-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Learning Rate Parameters
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resolution-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Resolution Parameters
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#regularization-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Regularization Parameters
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hardware-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Hardware Parameters
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ema-exponential-moving-average" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        EMA (Exponential Moving Average)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#checkpoint-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checkpoint Parameters
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Checkpoint Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#checkpoint-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checkpoint Files
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#early-stopping-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Early Stopping Parameters
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Early Stopping Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#early-stopping-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Early Stopping Example
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#logging-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Logging Parameters
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Logging Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#logging-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Logging Example
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#complete-parameter-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Complete Parameter Reference
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1084,7 +845,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/" class="md-nav__link">
+      <a href="../learn/train/advanced/" class="md-nav__link">
         
   
   
@@ -1112,7 +873,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../augmentations/" class="md-nav__link">
+      <a href="../learn/train/augmentations/" class="md-nav__link">
         
   
   
@@ -1140,7 +901,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../loggers/" class="md-nav__link">
+      <a href="../learn/train/loggers/" class="md-nav__link">
         
   
   
@@ -1176,7 +937,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../export/" class="md-nav__link">
+      <a href="../learn/export/" class="md-nav__link">
         
   
   
@@ -1204,7 +965,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../deploy/" class="md-nav__link">
+      <a href="../learn/deploy/" class="md-nav__link">
         
   
   
@@ -1232,7 +993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../benchmarks/" class="md-nav__link">
+      <a href="../learn/benchmarks/" class="md-nav__link">
         
   
   
@@ -1319,7 +1080,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/rfdetr/" class="md-nav__link">
+      <a href="../reference/rfdetr/" class="md-nav__link">
         
   
   
@@ -1399,7 +1160,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/nano/" class="md-nav__link">
+      <a href="../reference/nano/" class="md-nav__link">
         
   
   
@@ -1427,7 +1188,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/small/" class="md-nav__link">
+      <a href="../reference/small/" class="md-nav__link">
         
   
   
@@ -1455,7 +1216,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/base/" class="md-nav__link">
+      <a href="../reference/base/" class="md-nav__link">
         
   
   
@@ -1483,7 +1244,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/medium/" class="md-nav__link">
+      <a href="../reference/medium/" class="md-nav__link">
         
   
   
@@ -1511,7 +1272,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/large/" class="md-nav__link">
+      <a href="../reference/large/" class="md-nav__link">
         
   
   
@@ -1539,7 +1300,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/xlarge/" class="md-nav__link">
+      <a href="../reference/xlarge/" class="md-nav__link">
         
   
   
@@ -1567,7 +1328,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/2xlarge/" class="md-nav__link">
+      <a href="../reference/2xlarge/" class="md-nav__link">
         
   
   
@@ -1595,7 +1356,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/large_deprecated/" class="md-nav__link">
+      <a href="../reference/large_deprecated/" class="md-nav__link">
         
   
   
@@ -1683,7 +1444,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/seg_nano/" class="md-nav__link">
+      <a href="../reference/seg_nano/" class="md-nav__link">
         
   
   
@@ -1711,7 +1472,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/seg_small/" class="md-nav__link">
+      <a href="../reference/seg_small/" class="md-nav__link">
         
   
   
@@ -1739,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/seg_medium/" class="md-nav__link">
+      <a href="../reference/seg_medium/" class="md-nav__link">
         
   
   
@@ -1767,7 +1528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/seg_large/" class="md-nav__link">
+      <a href="../reference/seg_large/" class="md-nav__link">
         
   
   
@@ -1795,7 +1556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/seg_xlarge/" class="md-nav__link">
+      <a href="../reference/seg_xlarge/" class="md-nav__link">
         
   
   
@@ -1823,7 +1584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/seg_2xlarge/" class="md-nav__link">
+      <a href="../reference/seg_2xlarge/" class="md-nav__link">
         
   
   
@@ -1851,7 +1612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/seg_preview/" class="md-nav__link">
+      <a href="../reference/seg_preview/" class="md-nav__link">
         
   
   
@@ -1939,7 +1700,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/train_config/" class="md-nav__link">
+      <a href="../reference/train_config/" class="md-nav__link">
         
   
   
@@ -1967,7 +1728,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/segmentation_train_config/" class="md-nav__link">
+      <a href="../reference/segmentation_train_config/" class="md-nav__link">
         
   
   
@@ -2007,10 +1768,19 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../tutorials/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2026,6 +1796,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -2065,7 +1836,9 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -2076,203 +1849,6 @@
   
     
   
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#basic-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Basic Example
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#core-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Core Parameters
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Core Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#understanding-batch-size" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Understanding Batch Size
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#learning-rate-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Learning Rate Parameters
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resolution-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Resolution Parameters
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#regularization-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Regularization Parameters
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hardware-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Hardware Parameters
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ema-exponential-moving-average" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        EMA (Exponential Moving Average)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#checkpoint-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checkpoint Parameters
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Checkpoint Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#checkpoint-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checkpoint Files
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#early-stopping-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Early Stopping Parameters
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Early Stopping Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#early-stopping-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Early Stopping Example
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#logging-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Logging Parameters
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Logging Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#logging-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Logging Example
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#complete-parameter-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Complete Parameter Reference
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -2286,572 +1862,76 @@
               <article class="md-content__inner md-typeset">
                 
                   
+  
+
 
 
   
   
 
 
-<h1 id="training-parameters">Training Parameters<a class="headerlink" href="#training-parameters" title="Permanent link">&para;</a></h1>
-<p>This page provides a complete reference of all parameters available when training RF-DETR models.</p>
-<h2 id="basic-example">Basic Example<a class="headerlink" href="#basic-example" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr</span><span class="w"> </span><span class="kn">import</span> <span class="n">RFDETRMedium</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">model</span> <span class="o">=</span> <span class="n">RFDETRMedium</span><span class="p">()</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">dataset_dir</span><span class="o">=</span><span class="s2">&quot;path/to/dataset&quot;</span><span class="p">,</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">batch_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">grad_accum_steps</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">lr</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;output&quot;</span><span class="p">,</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">)</span>
-</span></code></pre></div>
-<h2 id="core-parameters">Core Parameters<a class="headerlink" href="#core-parameters" title="Permanent link">&para;</a></h2>
-<p>These are the essential parameters for training:</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>dataset_dir</code></td>
-<td><code>str</code></td>
-<td>Required</td>
-<td>Path to your dataset directory. RF-DETR auto-detects if it's in COCO or YOLO format. See <a href="../dataset-formats/">Dataset Formats</a>.</td>
-</tr>
-<tr>
-<td><code>output_dir</code></td>
-<td><code>str</code></td>
-<td><code>"output"</code></td>
-<td>Directory where training artifacts (checkpoints, logs) are saved.</td>
-</tr>
-<tr>
-<td><code>epochs</code></td>
-<td><code>int</code></td>
-<td><code>100</code></td>
-<td>Number of full passes over the training dataset.</td>
-</tr>
-<tr>
-<td><code>batch_size</code></td>
-<td><code>int</code></td>
-<td><code>4</code></td>
-<td>Number of samples processed per iteration. Higher values require more GPU memory.</td>
-</tr>
-<tr>
-<td><code>grad_accum_steps</code></td>
-<td><code>int</code></td>
-<td><code>4</code></td>
-<td>Accumulates gradients over multiple mini-batches. Use with <code>batch_size</code> to achieve effective batch size.</td>
-</tr>
-<tr>
-<td><code>resume</code></td>
-<td><code>str</code></td>
-<td><code>None</code></td>
-<td>Path to a saved checkpoint to continue training. Restores model weights, optimizer state, and scheduler.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="understanding-batch-size">Understanding Batch Size<a class="headerlink" href="#understanding-batch-size" title="Permanent link">&para;</a></h3>
-<p>The <strong>effective batch size</strong> is calculated as:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>effective_batch_size = batch_size × grad_accum_steps × num_gpus
-</span></code></pre></div>
-<p>Recommended configurations for different GPUs (targeting effective batch size of 16):</p>
-<table>
-<thead>
-<tr>
-<th>GPU</th>
-<th>VRAM</th>
-<th><code>batch_size</code></th>
-<th><code>grad_accum_steps</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A100</td>
-<td>40-80GB</td>
-<td>16</td>
-<td>1</td>
-</tr>
-<tr>
-<td>RTX 4090</td>
-<td>24GB</td>
-<td>8</td>
-<td>2</td>
-</tr>
-<tr>
-<td>RTX 3090</td>
-<td>24GB</td>
-<td>8</td>
-<td>2</td>
-</tr>
-<tr>
-<td>T4</td>
-<td>16GB</td>
-<td>4</td>
-<td>4</td>
-</tr>
-<tr>
-<td>RTX 3070</td>
-<td>8GB</td>
-<td>2</td>
-<td>8</td>
-</tr>
-</tbody>
-</table>
-<h2 id="learning-rate-parameters">Learning Rate Parameters<a class="headerlink" href="#learning-rate-parameters" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>lr</code></td>
-<td><code>float</code></td>
-<td><code>1e-4</code></td>
-<td>Learning rate for most parts of the model.</td>
-</tr>
-<tr>
-<td><code>lr_encoder</code></td>
-<td><code>float</code></td>
-<td><code>1.5e-4</code></td>
-<td>Learning rate specifically for the backbone encoder. Can be set lower than <code>lr</code> if you want to fine-tune the encoder more conservatively than the rest of the model.</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition tip">
-<p class="admonition-title">Learning rate tips</p>
+<h1 id="tutorials">Tutorials<a class="headerlink" href="#tutorials" title="Permanent link">&para;</a></h1>
+<p>Use the resources below to learn how to train, build with, and deploy RF-DETR models both in the cloud and on your own hardware.</p>
+<div class="grid cards">
 <ul>
-<li>Start with the default values for fine-tuning</li>
-<li>If the model doesn't converge, try reducing <code>lr</code> by half</li>
-<li>For training from scratch (not recommended), you may need higher learning rates</li>
+<li>
+<p><strong>SOTA Instance Segmentation with RF-DETR Seg (Preview) [October 2025]</strong></p>
+<hr />
+<p><img alt="" src="https://blog.roboflow.com/content/images/size/w1000/format/webp/2025/10/rfdetr-seg.png" /></p>
+<p>Read more about the RF-DETR Segmentation architecture and how to train an RF-DETR Seg (Preview) model.</p>
+<p><a href="https://blog.roboflow.com/rf-detr-segmentation-preview/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Learn more</a></p>
+</li>
+<li>
+<p><strong>Announcing RF-DETR Nano, Small, and Medium [July 2025]</strong></p>
+<hr />
+<p><img alt="" src="https://blog.roboflow.com/content/images/size/w1000/format/webp/2025/07/img-blog-rf-detr-1.png" /></p>
+<p>Read more about the state-of-the-art RF-DETR Nano, Small, and Medium models we released in July 2025.</p>
+<p><a href="https://blog.roboflow.com/rf-detr-nano-small-medium/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Learn more</a></p>
+</li>
+<li>
+<p><strong>RF-DETR: How to Train SOTA for Object Detection on a Custom Dataset [video]</strong></p>
+<hr />
+<p><img alt="" src="https://i.ytimg.com/vi/-OvpdLAElFA/maxresdefault.jpg" /></p>
+<p>Learn how to train an RF-DETR model on a custom dataset.</p>
+<p><a href="https://www.youtube.com/watch?v=-OvpdLAElFA"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Watch the video</a></p>
+</li>
+<li>
+<p><strong>How to Train RF-DETR on a Custom Dataset [article]</strong></p>
+<hr />
+<p><img alt="" src="https://blog.roboflow.com/content/images/size/w1000/format/webp/2025/03/img-blog-how-to-send-slack-notification-workflows-v4-1.png" /></p>
+<p>Learn how to train an RF-DETR model on a custom dataset.</p>
+<p><a href="https://blog.roboflow.com/train-rf-detr-on-a-custom-dataset/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Read the guide</a></p>
+</li>
+<li>
+<p><strong>Deploy RF-DETR on iOS [tutorial &amp; example application]</strong></p>
+<hr />
+<p><img alt="" src="https://blog.roboflow.com/content/images/size/w1000/format/webp/2025/07/img-blog-deep-learning-solves-frustrations--5--min.png" /></p>
+<p>Read this guide to learn how to run RF-DETR models on an iPhone using the Roboflow iOS SDK.</p>
+<p><a href="https://blog.roboflow.com/ios-rf-detr-nano/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Get started</a></p>
+</li>
+<li>
+<p><strong>How to Deploy RF-DETR to an NVIDIA Jetson [article]</strong></p>
+<hr />
+<p><img alt="" src="https://blog.roboflow.com/content/images/size/w1000/format/webp/2025/06/inst-3-.png" /></p>
+<p>Learn how to deploy an RF-DETR model to an NVIDIA Jetson using Roboflow Inference.</p>
+<p><a href="https://blog.roboflow.com/how-to-deploy-rf-detr-to-an-nvidia-jetson/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Read the tutorial</a></p>
+</li>
+<li>
+<p><strong>Train and Deploy RF-DETR Models with Roboflow</strong></p>
+<hr />
+<p><img alt="" src="https://blog.roboflow.com/content/images/size/w1000/format/webp/2025/03/img-blog-nycerebro-2.png" /></p>
+<p>Learn how to train RF-DETR models in the cloud with Roboflow and deploy your models on your own hardware with Roboflow Inference and Workflows.</p>
+<p><a href="https://blog.roboflow.com/train-deploy-rf-detr/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Get started</a></p>
+</li>
+<li>
+<p><strong>RF-DETR: A SOTA Real-Time Object Detection Model</strong></p>
+<hr />
+<p><img alt="" src="https://blog.roboflow.com/content/images/size/w1000/format/webp/2025/03/img-blog-nycerebro--2--min.png" /></p>
+<p>Read our announcement for RF-DETR, the first real-time model to achieve 60+ mean Average Precision when benchmarked on the COCO dataset.</p>
+<p><a href="https://blog.roboflow.com/rf-detr/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Read the announcement</a></p>
+</li>
 </ul>
 </div>
-<h2 id="resolution-parameters">Resolution Parameters<a class="headerlink" href="#resolution-parameters" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>resolution</code></td>
-<td><code>int</code></td>
-<td>Model-dependent</td>
-<td>Input image resolution. Higher values can improve accuracy but require more memory. <strong>Must be divisible by 56.</strong></td>
-</tr>
-</tbody>
-</table>
-<p>Common resolution values:</p>
-<table>
-<thead>
-<tr>
-<th>Resolution</th>
-<th>Memory Usage</th>
-<th>Use Case</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>560</td>
-<td>Low</td>
-<td>Small objects, limited GPU memory</td>
-</tr>
-<tr>
-<td>672</td>
-<td>Medium</td>
-<td>Balanced (default for many models)</td>
-</tr>
-<tr>
-<td>784</td>
-<td>High</td>
-<td>High accuracy requirements</td>
-</tr>
-<tr>
-<td>896</td>
-<td>Very High</td>
-<td>Maximum quality (requires large GPU)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="regularization-parameters">Regularization Parameters<a class="headerlink" href="#regularization-parameters" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>weight_decay</code></td>
-<td><code>float</code></td>
-<td><code>1e-4</code></td>
-<td>L2 regularization coefficient. Helps prevent overfitting by penalizing large weights.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="hardware-parameters">Hardware Parameters<a class="headerlink" href="#hardware-parameters" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>device</code></td>
-<td><code>str</code></td>
-<td><code>"cuda"</code></td>
-<td>Device to run training on. Options: <code>"cuda"</code>, <code>"cpu"</code>, <code>"mps"</code> (Apple Silicon).</td>
-</tr>
-<tr>
-<td><code>gradient_checkpointing</code></td>
-<td><code>bool</code></td>
-<td><code>False</code></td>
-<td>Re-computes parts of the forward pass during backpropagation to reduce memory usage. Lowers memory needs but increases training time.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="ema-exponential-moving-average">EMA (Exponential Moving Average)<a class="headerlink" href="#ema-exponential-moving-average" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>use_ema</code></td>
-<td><code>bool</code></td>
-<td><code>True</code></td>
-<td>Enables Exponential Moving Average of weights. Produces a smoothed checkpoint that often improves final performance.</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition info">
-<p class="admonition-title">What is EMA?</p>
-<p>EMA maintains a moving average of the model weights throughout training. This smoothed version often generalizes better than the raw weights and is commonly used for the final model.</p>
-</div>
-<h2 id="checkpoint-parameters">Checkpoint Parameters<a class="headerlink" href="#checkpoint-parameters" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>checkpoint_interval</code></td>
-<td><code>int</code></td>
-<td><code>10</code></td>
-<td>Frequency (in epochs) at which model checkpoints are saved. More frequent saves provide better coverage but consume more storage.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="checkpoint-files">Checkpoint Files<a class="headerlink" href="#checkpoint-files" title="Permanent link">&para;</a></h3>
-<p>During training, multiple checkpoints are saved:</p>
-<table>
-<thead>
-<tr>
-<th>File</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>checkpoint.pth</code></td>
-<td>Most recent checkpoint (for resuming)</td>
-</tr>
-<tr>
-<td><code>checkpoint_&lt;N&gt;.pth</code></td>
-<td>Periodic checkpoint at epoch N</td>
-</tr>
-<tr>
-<td><code>checkpoint_best_ema.pth</code></td>
-<td>Best validation performance (EMA weights)</td>
-</tr>
-<tr>
-<td><code>checkpoint_best_regular.pth</code></td>
-<td>Best validation performance (raw weights)</td>
-</tr>
-<tr>
-<td><code>checkpoint_best_total.pth</code></td>
-<td>Final best model for inference</td>
-</tr>
-</tbody>
-</table>
-<h2 id="early-stopping-parameters">Early Stopping Parameters<a class="headerlink" href="#early-stopping-parameters" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>early_stopping</code></td>
-<td><code>bool</code></td>
-<td><code>False</code></td>
-<td>Enable early stopping based on validation mAP.</td>
-</tr>
-<tr>
-<td><code>early_stopping_patience</code></td>
-<td><code>int</code></td>
-<td><code>10</code></td>
-<td>Number of epochs without improvement before stopping.</td>
-</tr>
-<tr>
-<td><code>early_stopping_min_delta</code></td>
-<td><code>float</code></td>
-<td><code>0.001</code></td>
-<td>Minimum change in mAP to qualify as an improvement.</td>
-</tr>
-<tr>
-<td><code>early_stopping_use_ema</code></td>
-<td><code>bool</code></td>
-<td><code>False</code></td>
-<td>Whether to track improvements using EMA model metrics.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="early-stopping-example">Early Stopping Example<a class="headerlink" href="#early-stopping-example" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">dataset_dir</span><span class="o">=</span><span class="s2">&quot;path/to/dataset&quot;</span><span class="p">,</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">epochs</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">batch_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">early_stopping_patience</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">early_stopping_min_delta</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="p">)</span>
-</span></code></pre></div>
-<p>This configuration will:</p>
-<ul>
-<li>Train for up to 200 epochs</li>
-<li>Stop early if mAP doesn't improve by at least 0.005 for 15 consecutive epochs</li>
-</ul>
-<h2 id="logging-parameters">Logging Parameters<a class="headerlink" href="#logging-parameters" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>tensorboard</code></td>
-<td><code>bool</code></td>
-<td><code>True</code></td>
-<td>Enable TensorBoard logging. Requires <code>pip install "rfdetr[metrics]"</code>.</td>
-</tr>
-<tr>
-<td><code>wandb</code></td>
-<td><code>bool</code></td>
-<td><code>False</code></td>
-<td>Enable Weights &amp; Biases logging. Requires <code>pip install "rfdetr[metrics]"</code>.</td>
-</tr>
-<tr>
-<td><code>project</code></td>
-<td><code>str</code></td>
-<td><code>None</code></td>
-<td>Project name for W&amp;B logging.</td>
-</tr>
-<tr>
-<td><code>run</code></td>
-<td><code>str</code></td>
-<td><code>None</code></td>
-<td>Run name for W&amp;B logging. If not specified, W&amp;B assigns a random name.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="logging-example">Logging Example<a class="headerlink" href="#logging-example" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">dataset_dir</span><span class="o">=</span><span class="s2">&quot;path/to/dataset&quot;</span><span class="p">,</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">tensorboard</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">wandb</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">project</span><span class="o">=</span><span class="s2">&quot;my-detection-project&quot;</span><span class="p">,</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">run</span><span class="o">=</span><span class="s2">&quot;experiment-001&quot;</span><span class="p">,</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">)</span>
-</span></code></pre></div>
-<h2 id="complete-parameter-reference">Complete Parameter Reference<a class="headerlink" href="#complete-parameter-reference" title="Permanent link">&para;</a></h2>
-<p>Below is a summary table of all training parameters:</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>dataset_dir</code></td>
-<td>str</td>
-<td>Required</td>
-<td>Path to COCO or YOLO formatted dataset with train/valid/test splits.</td>
-</tr>
-<tr>
-<td><code>output_dir</code></td>
-<td>str</td>
-<td>"output"</td>
-<td>Directory for checkpoints, logs, and other training artifacts.</td>
-</tr>
-<tr>
-<td><code>epochs</code></td>
-<td>int</td>
-<td>100</td>
-<td>Number of full passes over the dataset.</td>
-</tr>
-<tr>
-<td><code>batch_size</code></td>
-<td>int</td>
-<td>4</td>
-<td>Samples per iteration. Balance with <code>grad_accum_steps</code>.</td>
-</tr>
-<tr>
-<td><code>grad_accum_steps</code></td>
-<td>int</td>
-<td>4</td>
-<td>Gradient accumulation steps for effective larger batch sizes.</td>
-</tr>
-<tr>
-<td><code>lr</code></td>
-<td>float</td>
-<td>1e-4</td>
-<td>Learning rate for the model (excluding encoder).</td>
-</tr>
-<tr>
-<td><code>lr_encoder</code></td>
-<td>float</td>
-<td>1.5e-4</td>
-<td>Learning rate for the backbone encoder.</td>
-</tr>
-<tr>
-<td><code>resolution</code></td>
-<td>int</td>
-<td>Model-specific</td>
-<td>Input image size (must be divisible by 56).</td>
-</tr>
-<tr>
-<td><code>weight_decay</code></td>
-<td>float</td>
-<td>1e-4</td>
-<td>L2 regularization coefficient.</td>
-</tr>
-<tr>
-<td><code>device</code></td>
-<td>str</td>
-<td>"cuda"</td>
-<td>Training device: cuda, cpu, or mps.</td>
-</tr>
-<tr>
-<td><code>use_ema</code></td>
-<td>bool</td>
-<td>True</td>
-<td>Enable Exponential Moving Average of weights.</td>
-</tr>
-<tr>
-<td><code>gradient_checkpointing</code></td>
-<td>bool</td>
-<td>False</td>
-<td>Trade compute for memory during backprop.</td>
-</tr>
-<tr>
-<td><code>checkpoint_interval</code></td>
-<td>int</td>
-<td>10</td>
-<td>Save checkpoint every N epochs.</td>
-</tr>
-<tr>
-<td><code>resume</code></td>
-<td>str</td>
-<td>None</td>
-<td>Path to checkpoint for resuming training.</td>
-</tr>
-<tr>
-<td><code>tensorboard</code></td>
-<td>bool</td>
-<td>True</td>
-<td>Enable TensorBoard logging.</td>
-</tr>
-<tr>
-<td><code>wandb</code></td>
-<td>bool</td>
-<td>False</td>
-<td>Enable Weights &amp; Biases logging.</td>
-</tr>
-<tr>
-<td><code>project</code></td>
-<td>str</td>
-<td>None</td>
-<td>W&amp;B project name.</td>
-</tr>
-<tr>
-<td><code>run</code></td>
-<td>str</td>
-<td>None</td>
-<td>W&amp;B run name.</td>
-</tr>
-<tr>
-<td><code>early_stopping</code></td>
-<td>bool</td>
-<td>False</td>
-<td>Enable early stopping.</td>
-</tr>
-<tr>
-<td><code>early_stopping_patience</code></td>
-<td>int</td>
-<td>10</td>
-<td>Epochs without improvement before stopping.</td>
-</tr>
-<tr>
-<td><code>early_stopping_min_delta</code></td>
-<td>float</td>
-<td>0.001</td>
-<td>Minimum mAP change to qualify as improvement.</td>
-</tr>
-<tr>
-<td><code>early_stopping_use_ema</code></td>
-<td>bool</td>
-<td>False</td>
-<td>Use EMA model for early stopping metrics.</td>
-</tr>
-</tbody>
-</table>
 
 
 
@@ -2859,8 +1939,13 @@
 
 
 
+  
+  
 
 
+
+
+  
 
 
 
@@ -2956,10 +2041,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.tabs.link", "content.code.copy", "navigation.expand", "navigation.tabs", "content.code.annotate", "navigation.tracking", "content.tooltips", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.tabs.link", "content.code.copy", "navigation.expand", "navigation.tabs", "content.code.annotate", "navigation.tracking", "content.tooltips", "navigation.tabs.sticky"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

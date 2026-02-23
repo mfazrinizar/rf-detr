@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://roboflow.github.io/rf-detr/develop/learn/train/">
       
       
-        <link rel="prev" href="../run/segmentation/">
+        <link rel="prev" href="../pretrained/">
       
       
         <link rel="next" href="dataset-formats/">
@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/roboflow-logo.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -369,6 +369,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../tutorials/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Tutorials
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="https://github.com/roboflow/rf-detr/releases" class="md-tabs__link">
         
   
@@ -650,6 +669,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pretrained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pretrained Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -821,6 +868,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#training-loggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training Loggers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#result-checkpoints" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -933,6 +991,62 @@
     
   
     Advanced Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="augmentations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Augmentations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="loggers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training Loggers
   
 
     
@@ -1795,6 +1909,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="https://github.com/roboflow/rf-detr/releases" class="md-nav__link">
         
   
@@ -1879,6 +2020,17 @@
     <span class="md-ellipsis">
       
         Advanced Topics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#training-loggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training Loggers
       
     </span>
   </a>
@@ -2012,10 +2164,19 @@
 <li><a href="advanced/#resume-training">Resume training</a> from a checkpoint</li>
 <li><a href="advanced/#early-stopping">Early stopping</a> to prevent overfitting</li>
 <li><a href="advanced/#multi-gpu-training">Multi-GPU training</a> with PyTorch DDP</li>
-<li><a href="advanced/#logging-with-tensorboard">Logging with TensorBoard</a></li>
-<li><a href="advanced/#logging-with-weights-and-biases">Logging with Weights and Biases</a></li>
+<li><a href="augmentations/">Custom augmentations with Albumentations</a> - Dedicated guide</li>
+<li><a href="advanced/#memory-optimization">Memory optimization</a> with gradient checkpointing</li>
 </ul>
 <p>→ <strong><a href="advanced/">Learn more about advanced training</a></strong></p>
+<h2 id="training-loggers">Training Loggers<a class="headerlink" href="#training-loggers" title="Permanent link">&para;</a></h2>
+<p>Track your experiments with popular logging platforms:</p>
+<ul>
+<li><a href="loggers/#tensorboard">TensorBoard</a> for local visualization</li>
+<li><a href="loggers/#weights-and-biases">Weights and Biases</a> for cloud-based tracking</li>
+<li><a href="loggers/#clearml">ClearML</a> for MLOps automation</li>
+<li><a href="loggers/#mlflow">MLflow</a> for experiment lifecycle management</li>
+</ul>
+<p>→ <strong><a href="loggers/">Learn more about training loggers</a></strong></p>
 <h2 id="result-checkpoints">Result Checkpoints<a class="headerlink" href="#result-checkpoints" title="Permanent link">&para;</a></h2>
 <p>During training, multiple model checkpoints are saved to the output directory:</p>
 <ul>
