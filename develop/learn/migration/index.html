@@ -12,26 +12,28 @@
         <meta name="author" content="Roboflow">
       
       
-        <link rel="canonical" href="https://rfdetr.roboflow.com/develop/tutorials/">
+        <link rel="canonical" href="https://rfdetr.roboflow.com/develop/learn/migration/">
       
       
-        <link rel="prev" href="../reference/training/">
+        <link rel="prev" href="../install/">
       
+      
+        <link rel="next" href="../run/detection/">
       
       
         
       
       
-      <link rel="icon" href="../assets/roboflow-logo.svg">
+      <link rel="icon" href="../../assets/roboflow-logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Tutorials - RF-DETR</title>
+        <title>Migration Guide - RF-DETR</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
       
 
@@ -50,11 +52,11 @@
       
     
     
-      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../stylesheets/rf.css">
+      <link rel="stylesheet" href="../../stylesheets/rf.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -72,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tutorials" class="md-skip">
+        <a href="#deprecated-apis" class="md-skip">
           Skip to content
         </a>
       
@@ -100,14 +102,14 @@
 
     <!-- Link to home -->
     <a
-      href=".."
+      href="../.."
       title="RF-DETR"
       class="md-header__button md-logo"
       aria-label="RF-DETR"
       data-md-component="logo"
     >
       
-  <img src="../assets/roboflow-logo.svg" alt="logo">
+  <img src="../../assets/roboflow-logo.svg" alt="logo">
 
     </a>
 
@@ -128,7 +130,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis" style="display: flex; align-items: center; gap: 0.5rem;">
             <a
-            href=".."
+            href="../.."
             title="RF-DETR"
             class="md-header__button md-logo"
             aria-label="RF-DETR"
@@ -136,11 +138,11 @@
             id="item-logo"
             >
             
-  <img src="../assets/roboflow-logo.svg" alt="logo">
+  <img src="../../assets/roboflow-logo.svg" alt="logo">
 
             </a>
             
-              Tutorials
+              Migration Guide
             
           </span>
         </div>
@@ -306,7 +308,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -323,11 +325,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../learn/install/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../install/" class="md-tabs__link">
           
   
   
@@ -347,7 +351,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../reference/rfdetr/" class="md-tabs__link">
+        <a href="../../reference/rfdetr/" class="md-tabs__link">
           
   
   
@@ -363,11 +367,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../../tutorials/" class="md-tabs__link">
         
   
   
@@ -416,9 +418,7 @@
           
             
               
-                
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -429,9 +429,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="RF-DETR" class="md-nav__button md-logo" aria-label="RF-DETR" data-md-component="logo">
+    <a href="../.." title="RF-DETR" class="md-nav__button md-logo" aria-label="RF-DETR" data-md-component="logo">
       
-  <img src="../assets/roboflow-logo.svg" alt="logo">
+  <img src="../../assets/roboflow-logo.svg" alt="logo">
 
     </a>
     RF-DETR
@@ -458,7 +458,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -482,26 +482,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
-        
-          
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -519,7 +522,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -537,7 +540,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../learn/install/" class="md-nav__link">
+      <a href="../install/" class="md-nav__link">
         
   
   
@@ -562,10 +565,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../learn/migration/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -581,6 +611,153 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-renames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module renames
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Migration examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrutilcoco_classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.util.coco_classes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrutilmisc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.util.misc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrutillogger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.util.logger
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrutilbox_ops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.util.box_ops
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrutilget_param_dicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.util.get_param_dicts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrutildrop_scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.util.drop_scheduler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrutilvisualize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.util.visualize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrdeploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.deploy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrmodelssegmentation_head" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.models.segmentation_head
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -645,7 +822,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../learn/run/detection/" class="md-nav__link">
+      <a href="../run/detection/" class="md-nav__link">
         
   
   
@@ -673,7 +850,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../learn/run/segmentation/" class="md-nav__link">
+      <a href="../run/segmentation/" class="md-nav__link">
         
   
   
@@ -701,7 +878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../learn/pretrained/" class="md-nav__link">
+      <a href="../pretrained/" class="md-nav__link">
         
   
   
@@ -789,7 +966,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../learn/train/" class="md-nav__link">
+      <a href="../train/" class="md-nav__link">
         
   
   
@@ -817,7 +994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../learn/train/dataset-formats/" class="md-nav__link">
+      <a href="../train/dataset-formats/" class="md-nav__link">
         
   
   
@@ -845,7 +1022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../learn/train/training-parameters/" class="md-nav__link">
+      <a href="../train/training-parameters/" class="md-nav__link">
         
   
   
@@ -873,7 +1050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../learn/train/advanced/" class="md-nav__link">
+      <a href="../train/advanced/" class="md-nav__link">
         
   
   
@@ -901,7 +1078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../learn/train/customization/" class="md-nav__link">
+      <a href="../train/customization/" class="md-nav__link">
         
   
   
@@ -929,7 +1106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../learn/train/augmentations/" class="md-nav__link">
+      <a href="../train/augmentations/" class="md-nav__link">
         
   
   
@@ -957,7 +1134,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../learn/train/loggers/" class="md-nav__link">
+      <a href="../train/loggers/" class="md-nav__link">
         
   
   
@@ -993,7 +1170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../learn/export/" class="md-nav__link">
+      <a href="../export/" class="md-nav__link">
         
   
   
@@ -1021,7 +1198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../learn/deploy/" class="md-nav__link">
+      <a href="../deploy/" class="md-nav__link">
         
   
   
@@ -1049,7 +1226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../learn/benchmarks/" class="md-nav__link">
+      <a href="../benchmarks/" class="md-nav__link">
         
   
   
@@ -1136,7 +1313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/rfdetr/" class="md-nav__link">
+      <a href="../../reference/rfdetr/" class="md-nav__link">
         
   
   
@@ -1216,7 +1393,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/nano/" class="md-nav__link">
+      <a href="../../reference/nano/" class="md-nav__link">
         
   
   
@@ -1244,7 +1421,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/small/" class="md-nav__link">
+      <a href="../../reference/small/" class="md-nav__link">
         
   
   
@@ -1272,7 +1449,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/medium/" class="md-nav__link">
+      <a href="../../reference/medium/" class="md-nav__link">
         
   
   
@@ -1300,7 +1477,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/large/" class="md-nav__link">
+      <a href="../../reference/large/" class="md-nav__link">
         
   
   
@@ -1328,7 +1505,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/xlarge/" class="md-nav__link">
+      <a href="../../reference/xlarge/" class="md-nav__link">
         
   
   
@@ -1356,7 +1533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/2xlarge/" class="md-nav__link">
+      <a href="../../reference/2xlarge/" class="md-nav__link">
         
   
   
@@ -1444,7 +1621,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/seg_nano/" class="md-nav__link">
+      <a href="../../reference/seg_nano/" class="md-nav__link">
         
   
   
@@ -1472,7 +1649,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/seg_small/" class="md-nav__link">
+      <a href="../../reference/seg_small/" class="md-nav__link">
         
   
   
@@ -1500,7 +1677,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/seg_medium/" class="md-nav__link">
+      <a href="../../reference/seg_medium/" class="md-nav__link">
         
   
   
@@ -1528,7 +1705,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/seg_large/" class="md-nav__link">
+      <a href="../../reference/seg_large/" class="md-nav__link">
         
   
   
@@ -1556,7 +1733,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/seg_xlarge/" class="md-nav__link">
+      <a href="../../reference/seg_xlarge/" class="md-nav__link">
         
   
   
@@ -1584,7 +1761,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/seg_2xlarge/" class="md-nav__link">
+      <a href="../../reference/seg_2xlarge/" class="md-nav__link">
         
   
   
@@ -1672,7 +1849,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/train_config/" class="md-nav__link">
+      <a href="../../reference/train_config/" class="md-nav__link">
         
   
   
@@ -1700,7 +1877,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/segmentation_train_config/" class="md-nav__link">
+      <a href="../../reference/segmentation_train_config/" class="md-nav__link">
         
   
   
@@ -1788,7 +1965,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/training/" class="md-nav__link">
+      <a href="../../reference/training/" class="md-nav__link">
         
   
   
@@ -1828,19 +2005,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../tutorials/" class="md-nav__link">
         
   
   
@@ -1856,7 +2024,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1896,9 +2063,7 @@
             
             
               
-                
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1909,6 +2074,141 @@
   
     
   
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-renames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module renames
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Migration examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrutilcoco_classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.util.coco_classes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrutilmisc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.util.misc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrutillogger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.util.logger
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrutilbox_ops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.util.box_ops
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrutilget_param_dicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.util.get_param_dicts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrutildrop_scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.util.drop_scheduler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrutilvisualize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.util.visualize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrdeploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.deploy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rfdetrmodelssegmentation_head" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rfdetr.models.segmentation_head
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1922,97 +2222,145 @@
               <article class="md-content__inner md-typeset">
                 
                   
-  
-
-
-
-  
-  
-
-
-<h1 id="tutorials">Tutorials<a class="headerlink" href="#tutorials" title="Permanent link">&para;</a></h1>
-<p>Use the resources below to learn how to train, build with, and deploy RF-DETR models both in the cloud and on your own hardware.</p>
-<div class="grid cards">
-<ul>
-<li>
-<p><strong>SOTA Instance Segmentation with RF-DETR Seg (Preview) [October 2025]</strong></p>
-<hr />
-<p><img alt="" src="https://blog.roboflow.com/content/images/size/w1000/format/webp/2025/10/rfdetr-seg.png" /></p>
-<p>Read more about the RF-DETR Segmentation architecture and how to train an RF-DETR Seg (Preview) model.</p>
-<p><a href="https://blog.roboflow.com/rf-detr-segmentation-preview/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Learn more</a></p>
-</li>
-<li>
-<p><strong>Announcing RF-DETR Nano, Small, and Medium [July 2025]</strong></p>
-<hr />
-<p><img alt="" src="https://blog.roboflow.com/content/images/size/w1000/format/webp/2025/07/img-blog-rf-detr-1.png" /></p>
-<p>Read more about the state-of-the-art RF-DETR Nano, Small, and Medium models we released in July 2025.</p>
-<p><a href="https://blog.roboflow.com/rf-detr-nano-small-medium/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Learn more</a></p>
-</li>
-<li>
-<p><strong>RF-DETR: How to Train SOTA for Object Detection on a Custom Dataset [video]</strong></p>
-<hr />
-<p><img alt="" src="https://i.ytimg.com/vi/-OvpdLAElFA/maxresdefault.jpg" /></p>
-<p>Learn how to train an RF-DETR model on a custom dataset.</p>
-<p><a href="https://www.youtube.com/watch?v=-OvpdLAElFA"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Watch the video</a></p>
-</li>
-<li>
-<p><strong>How to Train RF-DETR on a Custom Dataset [article]</strong></p>
-<hr />
-<p><img alt="" src="https://blog.roboflow.com/content/images/size/w1000/format/webp/2025/03/img-blog-how-to-send-slack-notification-workflows-v4-1.png" /></p>
-<p>Learn how to train an RF-DETR model on a custom dataset.</p>
-<p><a href="https://blog.roboflow.com/train-rf-detr-on-a-custom-dataset/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Read the guide</a></p>
-</li>
-<li>
-<p><strong>Deploy RF-DETR on iOS [tutorial &amp; example application]</strong></p>
-<hr />
-<p><img alt="" src="https://blog.roboflow.com/content/images/size/w1000/format/webp/2025/07/img-blog-deep-learning-solves-frustrations--5--min.png" /></p>
-<p>Read this guide to learn how to run RF-DETR models on an iPhone using the Roboflow iOS SDK.</p>
-<p><a href="https://blog.roboflow.com/ios-rf-detr-nano/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Get started</a></p>
-</li>
-<li>
-<p><strong>How to Deploy RF-DETR to an NVIDIA Jetson [article]</strong></p>
-<hr />
-<p><img alt="" src="https://blog.roboflow.com/content/images/size/w1000/format/webp/2025/06/inst-3-.png" /></p>
-<p>Learn how to deploy an RF-DETR model to an NVIDIA Jetson using Roboflow Inference.</p>
-<p><a href="https://blog.roboflow.com/how-to-deploy-rf-detr-to-an-nvidia-jetson/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Read the tutorial</a></p>
-</li>
-<li>
-<p><strong>Deploy RF-DETR with LitServe [Lightning AI Studio]</strong></p>
-<hr />
-<p><img alt="" src="https://blog.roboflow.com/content/images/size/w1000/format/webp/2025/03/img-blog-nycerebro--2--min.png" />
-Learn how to deploy RF-DETR as a scalable inference server using LitServe, the AI model serving framework from Lightning AI.</p>
-<p><a href="https://lightning.ai/bhimrajyadav/studios/deploy-rf-detr-a-sota-real-time-object-detection-model-using-litserve"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Open the Studio</a></p>
-</li>
-<li>
-<p><strong>Train and Deploy RF-DETR Models with Roboflow</strong></p>
-<hr />
-<p><img alt="" src="https://blog.roboflow.com/content/images/size/w1000/format/webp/2025/03/img-blog-nycerebro-2.png" /></p>
-<p>Learn how to train RF-DETR models in the cloud with Roboflow and deploy your models on your own hardware with Roboflow Inference and Workflows.</p>
-<p><a href="https://blog.roboflow.com/train-deploy-rf-detr/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Get started</a></p>
-</li>
-<li>
-<p><strong>RF-DETR: A SOTA Real-Time Object Detection Model</strong></p>
-<hr />
-<p><img alt="" src="https://blog.roboflow.com/content/images/size/w1000/format/webp/2025/03/img-blog-nycerebro--2--min.png" /></p>
-<p>Read our announcement for RF-DETR, the first real-time model to achieve 60+ mean Average Precision when benchmarked on the COCO dataset.</p>
-<p><a href="https://blog.roboflow.com/rf-detr/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Read the announcement</a></p>
-</li>
-</ul>
-</div>
-
-
-
-
-
 
 
   
   
 
 
+<h1 id="deprecated-apis">Deprecated APIs<a class="headerlink" href="#deprecated-apis" title="Permanent link">&para;</a></h1>
+<p>RF-DETR has reorganised its internal package layout. A set of backward-compatibility
+shim modules is provided so that existing code continues to work, but each shim emits
+a <code>DeprecationWarning</code> on import. Update your imports before the shims are removed in
+a future major release.</p>
+<h2 id="module-renames">Module renames<a class="headerlink" href="#module-renames" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Deprecated module</th>
+<th>Canonical replacement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rfdetr.util.coco_classes</code></td>
+<td><code>rfdetr.assets.coco_classes</code></td>
+</tr>
+<tr>
+<td><code>rfdetr.util.misc</code></td>
+<td><code>rfdetr.utilities</code></td>
+</tr>
+<tr>
+<td><code>rfdetr.util.logger</code></td>
+<td><code>rfdetr.utilities.logger</code></td>
+</tr>
+<tr>
+<td><code>rfdetr.util.box_ops</code></td>
+<td><code>rfdetr.utilities.box_ops</code></td>
+</tr>
+<tr>
+<td><code>rfdetr.util.files</code></td>
+<td><code>rfdetr.utilities.files</code></td>
+</tr>
+<tr>
+<td><code>rfdetr.util.package</code></td>
+<td><code>rfdetr.utilities.package</code></td>
+</tr>
+<tr>
+<td><code>rfdetr.util.get_param_dicts</code></td>
+<td><code>rfdetr.training.param_groups</code></td>
+</tr>
+<tr>
+<td><code>rfdetr.util.drop_scheduler</code></td>
+<td><code>rfdetr.training.drop_schedule</code></td>
+</tr>
+<tr>
+<td><code>rfdetr.util.visualize</code></td>
+<td><code>rfdetr.visualize.data</code></td>
+</tr>
+<tr>
+<td><code>rfdetr.deploy</code></td>
+<td><code>rfdetr.export</code></td>
+</tr>
+<tr>
+<td><code>rfdetr.models.segmentation_head</code></td>
+<td><code>rfdetr.models.heads.segmentation</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="migration-examples">Migration examples<a class="headerlink" href="#migration-examples" title="Permanent link">&para;</a></h2>
+<h3 id="rfdetrutilcoco_classes"><code>rfdetr.util.coco_classes</code><a class="headerlink" href="#rfdetrutilcoco_classes" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Before (deprecated)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.util.coco_classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">COCO_CLASSES</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># After</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.assets.coco_classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">COCO_CLASSES</span>
+</span></code></pre></div>
+<h3 id="rfdetrutilmisc"><code>rfdetr.util.misc</code><a class="headerlink" href="#rfdetrutilmisc" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Before (deprecated)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.util.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_rank</span><span class="p">,</span> <span class="n">get_world_size</span><span class="p">,</span> <span class="n">is_main_process</span><span class="p">,</span> <span class="n">save_on_master</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># After</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.utilities.distributed</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_rank</span><span class="p">,</span> <span class="n">get_world_size</span><span class="p">,</span> <span class="n">is_main_process</span><span class="p">,</span> <span class="n">save_on_master</span>
+</span></code></pre></div>
+<h3 id="rfdetrutillogger"><code>rfdetr.util.logger</code><a class="headerlink" href="#rfdetrutillogger" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Before (deprecated)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.util.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># After</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.utilities.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
+</span></code></pre></div>
+<h3 id="rfdetrutilbox_ops"><code>rfdetr.util.box_ops</code><a class="headerlink" href="#rfdetrutilbox_ops" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Before (deprecated)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.util.box_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">box_cxcywh_to_xyxy</span><span class="p">,</span> <span class="n">generalized_box_iou</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># After</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.utilities.box_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">box_cxcywh_to_xyxy</span><span class="p">,</span> <span class="n">generalized_box_iou</span>
+</span></code></pre></div>
+<h3 id="rfdetrutilget_param_dicts"><code>rfdetr.util.get_param_dicts</code><a class="headerlink" href="#rfdetrutilget_param_dicts" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Before (deprecated)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.util.get_param_dicts</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_param_dict</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># After</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.training.param_groups</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_param_dict</span>
+</span></code></pre></div>
+<h3 id="rfdetrutildrop_scheduler"><code>rfdetr.util.drop_scheduler</code><a class="headerlink" href="#rfdetrutildrop_scheduler" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Before (deprecated)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.util.drop_scheduler</span><span class="w"> </span><span class="kn">import</span> <span class="n">drop_scheduler</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># After</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.training.drop_schedule</span><span class="w"> </span><span class="kn">import</span> <span class="n">drop_scheduler</span>
+</span></code></pre></div>
+<h3 id="rfdetrutilvisualize"><code>rfdetr.util.visualize</code><a class="headerlink" href="#rfdetrutilvisualize" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Before (deprecated)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.util.visualize</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_gt_predictions_visualization</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># After</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.visualize.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_gt_predictions_visualization</span>
+</span></code></pre></div>
+<h3 id="rfdetrdeploy"><code>rfdetr.deploy</code><a class="headerlink" href="#rfdetrdeploy" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Before (deprecated)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.deploy</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_onnx</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># After</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.export</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_onnx</span>
+</span></code></pre></div>
+<h3 id="rfdetrmodelssegmentation_head"><code>rfdetr.models.segmentation_head</code><a class="headerlink" href="#rfdetrmodelssegmentation_head" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Before (deprecated)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.models.segmentation_head</span><span class="w"> </span><span class="kn">import</span> <span class="n">SegmentationHead</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># After</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rfdetr.models.heads.segmentation</span><span class="w"> </span><span class="kn">import</span> <span class="n">SegmentationHead</span>
+</span></code></pre></div>
 
 
-  
+
+
+
+
+
+
+
 
 
 
@@ -2108,10 +2456,10 @@ Learn how to deploy RF-DETR as a scalable inference server using LitServe, the A
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.tabs.link", "content.code.copy", "navigation.expand", "navigation.tabs", "content.code.annotate", "navigation.tracking", "content.tooltips", "navigation.tabs.sticky"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.tabs.link", "content.code.copy", "navigation.expand", "navigation.tabs", "content.code.annotate", "navigation.tracking", "content.tooltips", "navigation.tabs.sticky"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
