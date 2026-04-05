@@ -528,6 +528,14 @@ class RFDETR:
 
         # Sync the trained weights back so predict() / export() see the updated model.
         self.model.model = module.model
+        # After multi-device training (DDP/XLA) the unwrapped model weights may
+        # reside on CPU.  Move them back to the inference device so that
+        # predict() / export() work without a manual .to() call.
+        _inference_device = self.model.device
+        if hasattr(self.model.model, "parameters"):
+            _first_param = next(self.model.model.parameters(), None)
+            if _first_param is not None and _first_param.device != _inference_device:
+                self.model.model = self.model.model.to(_inference_device)
         # Sync class names: prefer explicit config.class_names, otherwise fall back to dataset (#509).
         config_class_names = getattr(config, "class_names", None)
         if config_class_names is not None:
