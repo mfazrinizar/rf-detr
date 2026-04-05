@@ -73,6 +73,9 @@ trt = [
     "tensorrt>=8.6.1",
     "polygraphy",
 ]
+tpu = [
+    "torch_xla>=2.2.0",               # XLA/TPU bridge for PyTorch
+]
 loggers = [
     "tensorboard>=2.13.0",
     "protobuf>=3.20.0,<4.0.0",  # Pins protobuf below 4.x to avoid TensorBoard descriptor crash with protobuf>=4 (see #844)

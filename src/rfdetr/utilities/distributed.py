@@ -77,7 +77,17 @@ def all_gather(data: Any) -> list[Any]:
         return [data]
 
     # Serialize to a byte tensor on the active device.
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if torch.cuda.is_available():
+        device = torch.device("cuda")
+    else:
+        # Check for XLA backend — requires distributed to be initialised.
+        _backend = dist.get_backend() if dist.is_initialized() else ""
+        if _backend == "xla":
+            import torch_xla.core.xla_model as xm
+
+            device = xm.xla_device()
+        else:
+            device = torch.device("cpu")
     buffer = pickle.dumps(data)
     tensor = torch.tensor(bytearray(buffer), dtype=torch.uint8, device=device)
 

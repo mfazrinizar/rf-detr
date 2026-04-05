@@ -399,6 +399,8 @@ class RFDETR:
             return "gpu", [resolved_device.index] if resolved_device.index is not None else None
         if resolved_device.type == "mps":
             return "mps", [resolved_device.index] if resolved_device.index is not None else None
+        if resolved_device.type == "xla":
+            return "tpu", None
 
         warnings.warn(
             f"Device type {resolved_device.type!r} is not explicitly mapped to a PyTorch Lightning "
@@ -488,6 +490,12 @@ class RFDETR:
 
         config = self.get_train_config(**kwargs)
         if config.batch_size == "auto":
+            # auto_batch probing is CUDA-only; on TPU users must set batch_size.
+            if _accelerator == "tpu":
+                raise ValueError(
+                    "batch_size='auto' is not supported on TPU. "
+                    "Set an explicit batch_size in TrainConfig (e.g. batch_size=8)."
+                )
             auto_batch = resolve_auto_batch_config(
                 model_context=self.model,
                 model_config=self.model_config,

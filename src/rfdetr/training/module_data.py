@@ -18,6 +18,7 @@ from rfdetr.config import ModelConfig, TrainConfig
 from rfdetr.datasets import build_dataset
 from rfdetr.utilities.logger import get_logger
 from rfdetr.utilities.tensors import collate_fn
+from rfdetr.utilities.xla import is_xla_device
 
 logger = get_logger()
 
@@ -42,9 +43,13 @@ class RFDETRDataModule(LightningDataModule):
         self._dataset_test: Optional[torch.utils.data.Dataset] = None
 
         num_workers = self.train_config.num_workers
-        self._pin_memory: bool = (
-            torch.cuda.is_available() if self.train_config.pin_memory is None else bool(self.train_config.pin_memory)
-        )
+        # pin_memory speeds up CPU→GPU transfer but is unsupported on XLA/TPU.
+        if self.train_config.pin_memory is not None:
+            self._pin_memory = bool(self.train_config.pin_memory)
+        elif is_xla_device(self.model_config.device):
+            self._pin_memory = False
+        else:
+            self._pin_memory = torch.cuda.is_available()
         self._persistent_workers: bool = (
             num_workers > 0
             if self.train_config.persistent_workers is None
@@ -233,6 +238,8 @@ class RFDETRDataModule(LightningDataModule):
         """
         samples, targets = batch
         non_blocking = device.type == "cuda"
+        # XLA manages its own data transfer; non_blocking has no effect on TPU
+        # and pin_memory is handled at DataLoader level (disabled for XLA).
         samples = samples.to(device, non_blocking=non_blocking)
         targets = [{k: v.to(device, non_blocking=non_blocking) for k, v in t.items()} for t in targets]
         return samples, targets

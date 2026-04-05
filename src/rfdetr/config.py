@@ -12,7 +12,21 @@ from typing import Any, ClassVar, Dict, List, Literal, Mapping, Optional, Union
 import torch
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-DEVICE = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
+from rfdetr.utilities.xla import is_torch_xla_available
+
+
+def _default_device() -> str:
+    """Return the best available device string."""
+    if torch.cuda.is_available():
+        return "cuda"
+    if torch.backends.mps.is_available():
+        return "mps"
+    if is_torch_xla_available():
+        return "xla"
+    return "cpu"
+
+
+DEVICE = _default_device()
 
 
 class BaseConfig(BaseModel):

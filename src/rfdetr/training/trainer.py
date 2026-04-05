@@ -16,6 +16,7 @@ from pytorch_lightning.callbacks.progress.rich_progress import RichProgressBarTh
 from pytorch_lightning.loggers import CSVLogger, MLFlowLogger, TensorBoardLogger, WandbLogger
 
 from rfdetr.config import ModelConfig, TrainConfig
+from rfdetr.utilities.xla import is_torch_xla_available
 from rfdetr.training.callbacks import (
     BestModelCallback,
     DropPathCallback,
@@ -69,6 +70,9 @@ def build_trainer(
     def _resolve_precision() -> str:
         if not model_config.amp:
             return "32-true"
+        if accelerator == "tpu" or (is_torch_xla_available() and accelerator == "auto"):
+            # TPUs have native bf16 support — bf16-mixed is the natural choice.
+            return "bf16-mixed"
         if torch.cuda.is_available():
             # Ampere+ GPUs support bf16-mixed which is scaler-free —
             # no GradScaler.scale/unscale/update overhead per optimizer step.

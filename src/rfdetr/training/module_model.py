@@ -24,6 +24,7 @@ from rfdetr.models import build_criterion_from_config, build_model_from_config
 from rfdetr.models.weights import apply_lora, load_pretrain_weights
 from rfdetr.training.param_groups import get_param_dict
 from rfdetr.utilities.logger import get_logger
+from rfdetr.utilities.xla import is_xla_device
 
 logger = get_logger()
 
@@ -66,8 +67,13 @@ class RFDETRModelModule(LightningModule):
         self.criterion, self.postprocess = build_criterion_from_config(self.model_config, self.train_config)
 
         # torch.compile is opt-in: set model_config.compile=True to enable.
-        # Only enabled on CUDA; MPS and CPU do not benefit from compilation.
-        compile_enabled = model_config.compile and torch.cuda.is_available() and not train_config.multi_scale
+        # Only enabled on CUDA; MPS, CPU, and XLA/TPU do not benefit from compilation.
+        compile_enabled = (
+            model_config.compile
+            and torch.cuda.is_available()
+            and not is_xla_device(model_config.device)
+            and not train_config.multi_scale
+        )
         if model_config.compile and train_config.multi_scale:
             logger.info("Disabling torch.compile because multi_scale=True introduces dynamic input shapes.")
         if compile_enabled:
@@ -230,7 +236,12 @@ class RFDETRModelModule(LightningModule):
         model_for_params = getattr(self.model, "_orig_mod", self.model)
         param_dicts = get_param_dict(ns, model_for_params)
         param_dicts = [p for p in param_dicts if p["params"].requires_grad]
-        use_fused = self.model_config.fused_optimizer and torch.cuda.is_available() and torch.cuda.is_bf16_supported()
+        use_fused = (
+            self.model_config.fused_optimizer
+            and torch.cuda.is_available()
+            and torch.cuda.is_bf16_supported()
+            and not is_xla_device(self.device)
+        )
         optimizer = torch.optim.AdamW(
             param_dicts,
             lr=tc.lr,
@@ -280,7 +291,12 @@ class RFDETRModelModule(LightningModule):
             gradient_clip_algorithm: Clipping algorithm; forwarded to super()
                 for the non-fused path.
         """
-        use_fused = self.model_config.fused_optimizer and torch.cuda.is_available() and torch.cuda.is_bf16_supported()
+        use_fused = (
+            self.model_config.fused_optimizer
+            and torch.cuda.is_available()
+            and torch.cuda.is_bf16_supported()
+            and not is_xla_device(self.device)
+        )
         if use_fused:
             if gradient_clip_val and gradient_clip_val > 0:
                 torch.nn.utils.clip_grad_norm_(self.parameters(), gradient_clip_val)
