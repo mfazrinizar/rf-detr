@@ -281,8 +281,29 @@ class TestBuildTrainerPrecision:
             build_trainer(_tc(tmp_path, use_ema=False), _mc(amp=True))
         assert captured["precision"] == "bf16-mixed"
 
+    def test_amp_true_tpu_gives_bf16_true(self, tmp_path):
+        """amp=True with TPU accelerator produces 'bf16-true'.
 
-class TestBuildTrainerEMAShardingGuard:
+        XLAPrecision only accepts '32-true', '16-true', or 'bf16-true'.
+        """
+        import unittest.mock as mock
+
+        captured: dict = {}
+
+        def _fake_trainer(**kwargs):
+            captured.update(kwargs)
+            return mock.MagicMock()
+
+        with (
+            mock.patch("rfdetr.training.trainer.is_torch_xla_available", return_value=True),
+            mock.patch("rfdetr.training.trainer.Trainer", side_effect=_fake_trainer),
+        ):
+            build_trainer(
+                _tc(tmp_path, use_ema=False),
+                _mc(amp=True),
+                accelerator="tpu",
+            )
+        assert captured["precision"] == "bf16-true"
     """EMA must be disabled and a UserWarning emitted for sharded strategies.
 
     PTL validates strategy+accelerator compatibility at Trainer construction time,

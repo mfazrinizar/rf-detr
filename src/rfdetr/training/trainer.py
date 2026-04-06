@@ -71,8 +71,9 @@ def build_trainer(
         if not model_config.amp:
             return "32-true"
         if accelerator == "tpu" or (is_torch_xla_available() and accelerator == "auto"):
-            # TPUs have native bf16 support — bf16-mixed is the natural choice.
-            return "bf16-mixed"
+            # XLAPrecision only accepts '32-true', '16-true', or 'bf16-true'.
+            # 'bf16-mixed' is not supported on XLA — use 'bf16-true' instead.
+            return "bf16-true"
         if torch.cuda.is_available():
             # Ampere+ GPUs support bf16-mixed which is scaler-free —
             # no GradScaler.scale/unscale/update overhead per optimizer step.
