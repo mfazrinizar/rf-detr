@@ -45,8 +45,8 @@ def _tc(tmp_path, **kwargs):
 class TestTrainerTPUPrecision:
     """build_trainer resolves precision correctly for TPU."""
 
-    def test_tpu_precision_bf16_mixed(self, tmp_path):
-        """When accelerator is 'tpu' and xla available, precision should be bf16-mixed."""
+    def test_tpu_precision_bf16_true(self, tmp_path):
+        """When accelerator is 'tpu' and xla available, precision should be bf16-true."""
         from rfdetr.training.trainer import build_trainer
 
         mc = _mc(amp=True)
@@ -62,7 +62,7 @@ class TestTrainerTPUPrecision:
                 MockTrainer.return_value = mock.MagicMock()
                 build_trainer(tc, mc, accelerator="tpu")
                 call_kwargs = MockTrainer.call_args[1]
-                assert call_kwargs["precision"] == "bf16-mixed"
+                assert call_kwargs["precision"] == "bf16-true"
 
     def test_tpu_precision_fp32_when_amp_off(self, tmp_path):
         """When amp=False, precision should be 32-true regardless of accelerator."""

@@ -488,7 +488,12 @@ class SetCriterion(nn.Module):
         num_boxes = torch.as_tensor([num_boxes], dtype=torch.float, device=next(iter(outputs.values())).device)
         if is_dist_avail_and_initialized():
             torch.distributed.all_reduce(num_boxes)
-        num_boxes = torch.clamp(num_boxes / get_world_size(), min=1).item()
+        num_boxes = torch.clamp(num_boxes / get_world_size(), min=1)
+        # Keep as a scalar tensor — calling .item() on XLA would force a
+        # compilation round-trip and graph break on every forward pass.
+        # Division by a 1-element tensor is algebraically equivalent.
+        if num_boxes.device.type != "xla":
+            num_boxes = num_boxes.item()
 
         # Compute all the requested losses
         losses = {}

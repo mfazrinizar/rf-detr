@@ -189,7 +189,11 @@ def _bilinear_grid_sample(
     """
     import torch.nn.functional as F
 
-    if input.device.type != "mps":
+    # Use the fused F.grid_sample kernel on CUDA/CPU where it is fast.
+    # On MPS the backward is not implemented; on XLA the op compiles into an
+    # extremely large HLO graph that causes multi-minute compilation stalls.
+    # Both backends use the gather-based fallback below instead.
+    if input.device.type not in ("mps", "xla"):
         return F.grid_sample(input, grid, mode="bilinear", padding_mode=padding_mode, align_corners=align_corners)
 
     if padding_mode not in ("zeros", "border"):

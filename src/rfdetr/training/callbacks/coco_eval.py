@@ -698,6 +698,10 @@ class COCOEvalCallback(Callback):
         ``RFDETR.predict`` and other inference-facing callers still consume the
         4-D representation and apply ``.squeeze(1)`` at their boundary.
 
+        On XLA devices, tensors are moved to CPU so that ``torchmetrics``
+        IoU / mAP computations (sorting, masking, etc.) do not trigger
+        expensive or unsupported XLA graph compilations.
+
         Args:
             preds: Raw per-image prediction dicts from ``PostProcess``.
 
@@ -710,6 +714,11 @@ class COCOEvalCallback(Callback):
             entry = dict(p)
             if "masks" in entry and entry["masks"].ndim == 4 and entry["masks"].shape[1] == 1:
                 entry["masks"] = entry["masks"].squeeze(1)
+            # Move XLA tensors to CPU — torchmetrics is not XLA-friendly.
+            entry = {
+                k: v.detach().cpu() if isinstance(v, torch.Tensor) and v.device.type == "xla" else v
+                for k, v in entry.items()
+            }
             out.append(entry)
         return out
 
@@ -717,6 +726,9 @@ class COCOEvalCallback(Callback):
         """Convert targets from normalised CxCyWH to absolute xyxy boxes.
 
         Also passes ``iscrowd`` and ``masks`` through unchanged.
+
+        On XLA devices, tensors are moved to CPU so that ``torchmetrics``
+        computations do not trigger expensive XLA graph compilations.
 
         Args:
             targets: Per-image target dicts with ``boxes`` in normalised
@@ -728,12 +740,25 @@ class COCOEvalCallback(Callback):
         """
         out = []
         for t in targets:
-            h, w = t["orig_size"].tolist()
-            scale = t["boxes"].new_tensor([w, h, w, h])
-            boxes = box_cxcywh_to_xyxy(t["boxes"]) * scale
-            entry: dict[str, torch.Tensor] = {"boxes": boxes, "labels": t["labels"]}
+            orig_size = t["orig_size"]
+            # .tolist() is fine on CPU; on XLA move first to avoid graph break.
+            if orig_size.device.type == "xla":
+                orig_size = orig_size.cpu()
+            h, w = orig_size.tolist()
+            boxes_dev = t["boxes"]
+            if boxes_dev.device.type == "xla":
+                boxes_dev = boxes_dev.cpu()
+            scale = boxes_dev.new_tensor([w, h, w, h])
+            boxes = box_cxcywh_to_xyxy(boxes_dev) * scale
+            labels = t["labels"]
+            if labels.device.type == "xla":
+                labels = labels.cpu()
+            entry: dict[str, torch.Tensor] = {"boxes": boxes, "labels": labels}
             if "masks" in t:
-                masks = t["masks"].bool()
+                masks = t["masks"]
+                if masks.device.type == "xla":
+                    masks = masks.cpu()
+                masks = masks.bool()
                 # PostProcess resizes predicted masks to orig_size; resize GT
                 # masks to match so that mask-IoU comparisons are size-consistent.
                 if masks.shape[-2:] != (int(h), int(w)):
@@ -748,6 +773,9 @@ class COCOEvalCallback(Callback):
                     )
                 entry["masks"] = masks
             if "iscrowd" in t:
-                entry["iscrowd"] = t["iscrowd"]
+                iscrowd = t["iscrowd"]
+                if isinstance(iscrowd, torch.Tensor) and iscrowd.device.type == "xla":
+                    iscrowd = iscrowd.cpu()
+                entry["iscrowd"] = iscrowd
             out.append(entry)
         return out

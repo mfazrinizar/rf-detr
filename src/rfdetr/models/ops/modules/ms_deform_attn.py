@@ -124,7 +124,11 @@ class MSDeformAttn(nn.Module):
         """
         N, Len_q, _ = query.shape
         N, Len_in, _ = input_flatten.shape
-        assert (input_spatial_shapes[:, 0] * input_spatial_shapes[:, 1]).sum() == Len_in
+        # Skip the shape-consistency assert on XLA — evaluating
+        # ``(tensor == int)`` forces lazy-tensor materialisation and an
+        # XLA compilation round-trip on every forward call.
+        if input_flatten.device.type != "xla":
+            assert (input_spatial_shapes[:, 0] * input_spatial_shapes[:, 1]).sum() == Len_in
 
         value = self.value_proj(input_flatten)
         if input_padding_mask is not None:
