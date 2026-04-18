@@ -212,6 +212,13 @@ class HungarianMatcher(nn.Module):
         cost_matrix = self.cost_bbox * cost_bbox + self.cost_class * cost_class + self.cost_giou * cost_giou
         if masks_present:
             cost_matrix = cost_matrix + self.cost_mask_ce * cost_mask_ce + self.cost_mask_dice * cost_mask_dice
+        # Sync pending XLA operations before the .cpu() transfer.  On XLA the
+        # graph is evaluated lazily; calling .cpu() while an async compilation
+        # is in flight causes "Check failed: !buffer->IsDeleted()" crashes.
+        if cost_matrix.device.type == "xla":
+            import torch_xla
+
+            torch_xla.sync()
         cost_matrix = (
             cost_matrix.view(bs, num_queries, -1).float().cpu()
         )  # convert to float because bfloat16 doesn't play nicely with CPU

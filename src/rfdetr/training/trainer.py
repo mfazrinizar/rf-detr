@@ -24,6 +24,8 @@ try:
 except ImportError:  # pragma: no cover - exercised in unit tests via monkeypatch
     _MultiProcessingLauncher = None  # type: ignore[assignment]
 
+from pytorch_lightning import Callback
+
 from rfdetr.config import ModelConfig, TrainConfig
 from rfdetr.training.callbacks import (
     BestModelCallback,
@@ -87,6 +89,26 @@ class _NotebookSpawnDDPStrategy(_DDPStrategy):
                 "pin/upgrade PTL to a compatible version in the supported >=2.6,<3 range."
             )
         self._launcher = _InteractiveSpawnLauncher(self, start_method=self._start_method)
+
+
+class _XLATeardownCallback(Callback):
+    """Sync pending XLA operations before PTL tears down.
+
+    PTL's ``Strategy.teardown()`` moves the model to CPU via
+    ``self.lightning_module.cpu()``.  On XLA, this fails with
+    ``Check failed: handle->HasValue()`` when async operations are
+    still in flight (e.g. after KeyboardInterrupt).  Syncing here
+    — in ``on_exception`` which PTL calls *before* ``teardown()`` —
+    ensures all pending XLA operations complete first.
+    """
+
+    def on_exception(self, trainer: Any, pl_module: Any, exception: BaseException) -> None:
+        try:
+            import torch_xla
+
+            torch_xla.sync(wait=True)
+        except Exception:
+            pass
 
 
 def build_trainer(
@@ -190,6 +212,11 @@ def build_trainer(
 
     # --- Build callbacks ---
     callbacks = []
+
+    # On XLA/TPU, sync pending operations before teardown to prevent crashes
+    # when PTL moves the model to CPU during interrupt handling.
+    if accelerator == "tpu" or (is_torch_xla_available() and accelerator == "auto"):
+        callbacks.append(_XLATeardownCallback())
 
     if tc.progress_bar == "rich":
         callbacks.append(RichProgressBar(theme=RichProgressBarTheme(metrics_format=".3e")))
