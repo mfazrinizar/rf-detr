@@ -78,7 +78,13 @@ class RFDETREMACallback(Callback):
         """
         updates = num_averaged + 1  # match ModelEma 1-indexed counter
         if self._tau > 0:
-            effective_decay = self._decay * (1 - math.exp(-updates / self._tau))
+            # Use torch.exp when num_averaged is a tensor (PyTorch >= 2.0) to
+            # avoid .item() calls that force XLA sync and to keep the graph
+            # structure constant across steps (preventing XLA recompilation).
+            if isinstance(num_averaged, torch.Tensor):
+                effective_decay = self._decay * (1 - torch.exp(-(updates.float() / self._tau)))
+            else:
+                effective_decay = self._decay * (1 - math.exp(-updates / self._tau))
         else:
             effective_decay = self._decay
         return averaged_param * effective_decay + model_param * (1.0 - effective_decay)
