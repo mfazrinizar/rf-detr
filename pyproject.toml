@@ -76,6 +76,16 @@ trt = [
 tpu = [
     "torch_xla>=2.2.0",               # XLA/TPU bridge for PyTorch
 ]
+tflite = [
+    "onnx2tf>=1.26.0,<2.0.0",
+    "flatbuffers>=23.5.26",
+    "onnx>=1.16.0,<1.20",
+    "tf-keras>=2.16.0",
+    "tensorflow>=2.16.0",
+]
+kornia = [
+    "kornia>=0.7,<1",              # GPU-side augmentation via on_after_batch_transfer
+]
 loggers = [
     "tensorboard>=2.13.0",
     "protobuf>=3.20.0,<4.0.0",  # Pins protobuf below 4.x to avoid TensorBoard descriptor crash with protobuf>=4 (see #844)
@@ -160,6 +170,7 @@ select = [
     "W",  # pycodestyle warnings
     "F",  # pyflakes
     "I",  # isort
+    "N",  # pep8-naming: lowercase variables (N806) and arguments (N803)
 ]
 extend-select = [
     "RUF100",  # yesqa
@@ -180,7 +191,8 @@ addopts = [
 pythonpath = ["src"]
 markers = [
     "gpu: tests that require GPU or are slow on CPU",
-    "flaky: tests that may fail due to nondeterminism"
+    "flaky: tests that may fail due to nondeterminism",
+    "tflite: tests requiring onnx2tf and TFLite dependencies",
 ]
 filterwarnings = [
     # pytest-xdist workers close their channel before teardown completes;
@@ -216,6 +228,9 @@ overrides = [
     "requests", "requests.*",
     "seaborn", "seaborn.*",
     "tqdm", "tqdm.*",
+    "kornia", "kornia.*",
+    "onnx", "onnx.*",
+    "onnx2tf", "onnx2tf.*",
   ], ignore_missing_imports = true },
   # Modules with pre-existing type errors — ignored until incrementally fixed.
   { module = [

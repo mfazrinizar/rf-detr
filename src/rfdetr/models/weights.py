@@ -19,11 +19,13 @@ extraction from ``detr.py:_load_pretrain_weights_into``.
 from __future__ import annotations
 
 import functools
+import math
 import os
 import warnings
 from typing import List
 
 import torch
+import torch.nn.functional as F  # noqa: N812
 
 from rfdetr.assets.model_weights import download_pretrain_weights, validate_pretrain_weights
 from rfdetr.config import ModelConfig, TrainConfig
@@ -34,6 +36,70 @@ from rfdetr.utilities.state_dict import _ckpt_args_get, validate_checkpoint_comp
 logger = get_logger()
 
 __all__ = ["load_pretrain_weights", "apply_lora"]
+
+_PE_KEY_SUFFIX = "embeddings.position_embeddings"
+
+
+def _interpolate_position_embeddings(
+    checkpoint_state: dict,
+    pe_size: int,
+) -> None:
+    """Interpolate DINOv2 positional embeddings in *checkpoint_state* to match *pe_size*.
+
+    When the model is configured with a custom ``resolution`` that differs from the
+    checkpoint's training resolution, the DINOv2 backbone's ``position_embeddings``
+    parameter has an incompatible shape.  ``load_state_dict(strict=False)`` does **not**
+    skip shape mismatches on matching keys — it raises ``RuntimeError``.
+
+    This function bicubic-interpolates every PE tensor in the checkpoint whose shape
+    differs from the target grid, modifying *checkpoint_state* in-place before
+    ``load_state_dict`` is called.
+
+    Args:
+        checkpoint_state: The ``"model"`` sub-dict from a loaded checkpoint.
+        pe_size: Target grid side length in patches (number of patches per spatial
+            dimension, assuming a square grid).  Typically
+            ``model_config.positional_encoding_size``.
+    """
+    n_target = pe_size * pe_size  # target number of patch tokens
+
+    pe_keys = [k for k in checkpoint_state if k.endswith(_PE_KEY_SUFFIX)]
+    for key in pe_keys:
+        ckpt_pe = checkpoint_state[key]  # [1, N_src+1, dim]
+        n_source = ckpt_pe.shape[1] - 1  # exclude class token
+        if n_source == n_target:
+            continue  # no mismatch — skip
+
+        h_src = int(math.isqrt(n_source))
+        h_tgt = int(math.isqrt(n_target))
+        if h_src * h_src != n_source or h_tgt * h_tgt != n_target:
+            logger.warning(
+                f"Skipping PE interpolation for {key}:"
+                f" grid size is not a perfect square (source {n_source}, target {n_target}).",
+            )
+            continue
+
+        dim = ckpt_pe.shape[-1]
+        class_token = ckpt_pe[:, :1]  # [1, 1, dim] — keeps the sequence dimension
+        patch_pe = ckpt_pe[:, 1:]  # [1, N_src, dim]
+
+        patch_pe = patch_pe.reshape(1, h_src, h_src, dim).permute(0, 3, 1, 2)  # [1, dim, H, W]
+        patch_pe = F.interpolate(
+            patch_pe.float(),
+            size=(h_tgt, h_tgt),
+            mode="bicubic",
+            align_corners=False,
+            antialias=patch_pe.device.type != "mps",
+        ).to(ckpt_pe.dtype)
+        patch_pe = patch_pe.permute(0, 2, 3, 1).reshape(1, n_target, dim)  # [1, N_tgt, dim]
+
+        checkpoint_state[key] = torch.cat([class_token, patch_pe], dim=1)
+        logger.debug(
+            "Interpolated positional embeddings %s: %s → %s.",
+            key,
+            tuple(ckpt_pe.shape),
+            tuple(checkpoint_state[key].shape),
+        )
 
 
 @deprecated(
@@ -108,6 +174,38 @@ def load_pretrain_weights(
         download_pretrain_weights(pretrain_weights, redownload=True, validate_md5=False)
         checkpoint = torch.load(pretrain_weights, map_location="cpu", weights_only=False)
 
+    # Normalize PyTorch Lightning native .ckpt format to the expected {"model": {...}}
+    # structure.  PTL stores model weights in "state_dict" with keys prefixed by
+    # "model." (matching the attribute path inside RFDETRModelModule).  Legacy and
+    # BestModelCallback checkpoints already have a top-level "model" key.
+    if "model" not in checkpoint and "state_dict" in checkpoint:
+        logger.debug("Normalizing PTL .ckpt checkpoint format (state_dict -> model)")
+        prefix = "model."
+        # When the model was wrapped with torch.compile, PTL stores weights with keys
+        # like "model._orig_mod.<param>".  Strip the extra "_orig_mod." segment so the
+        # resulting keys match the expected bare parameter names.
+        compile_prefix = "_orig_mod."
+        model_state = {}
+        for k, v in checkpoint["state_dict"].items():
+            if k.startswith(prefix):
+                stripped = k[len(prefix) :]
+                if stripped.startswith(compile_prefix):
+                    stripped = stripped[len(compile_prefix) :]
+                model_state[stripped] = v
+        if not model_state:
+            raise ValueError(
+                f"The checkpoint at {pretrain_weights!r} appears to be in PyTorch Lightning "
+                "format ('state_dict' key present, 'model' key absent), but 'state_dict' "
+                "contains no keys with the expected 'model.' prefix. "
+                "The checkpoint may be corrupt or in an unsupported format."
+            )
+        checkpoint["model"] = model_state
+        # PTL stores training hyper-parameters under "hyper_parameters".  Map them
+        # to the "args" key expected by class-name extraction and compatibility checks
+        # (only when "args" is not already present).
+        if "args" not in checkpoint and "hyper_parameters" in checkpoint:
+            checkpoint["args"] = checkpoint["hyper_parameters"]
+
     # Extract class_names from the checkpoint if available (ported from detr.py).
     if "args" in checkpoint:
         raw_class_names = _ckpt_args_get(checkpoint["args"], "class_names")
@@ -161,6 +259,7 @@ def load_pretrain_weights(
         if any(name.endswith(x) for x in query_param_names):
             checkpoint["model"][name] = checkpoint["model"][name][:num_desired_queries]
 
+    _interpolate_position_embeddings(checkpoint["model"], mc.positional_encoding_size)
     nn_model.load_state_dict(checkpoint["model"], strict=False)
 
     # If the user explicitly set a class count larger than the checkpoint,
