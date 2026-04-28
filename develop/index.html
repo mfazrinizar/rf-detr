@@ -61,6 +61,7 @@
     
     
   
+  <link rel="preconnect" href="https://storage.googleapis.com">
 
   
   
@@ -70,6 +71,8 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://rfdetr.roboflow.com/develop/">
   <meta property="og:image" content="https://storage.googleapis.com/com-roboflow-marketing/rf-detr/rf_detr_1-4_latency_accuracy_object_detection.png">
+  <meta property="og:image:width" content="840">
+  <meta property="og:image:height" content="630">
 
   
   <meta name="twitter:card" content="summary_large_image">
@@ -91,7 +94,7 @@
         "url": "https://roboflow.com",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://rfdetr.roboflow.com/develop/assets/roboflow-logo.svg",
+          "url": "https://rfdetr.roboflow.com/latest/assets/roboflow-logo.svg",
           "width": 400,
           "height": 400
         },
@@ -101,7 +104,9 @@
           "https://www.linkedin.com/company/roboflow-ai/",
           "https://twitter.com/roboflow",
           "https://www.youtube.com/@Roboflow",
-          "https://en.wikipedia.org/wiki/Roboflow"
+          "https://en.wikipedia.org/wiki/Roboflow",
+          "https://huggingface.co/roboflow",
+          "https://www.crunchbase.com/organization/roboflow"
         ]
       },
       {
@@ -110,12 +115,20 @@
         "name": "RF-DETR",
         "alternateName": "rfdetr",
         "applicationCategory": "DeveloperApplication",
+        "applicationSubCategory": "Computer vision model",
         "operatingSystem": "Linux, macOS, Windows",
         "url": "https://rfdetr.roboflow.com/develop",
         "downloadUrl": "https://pypi.org/project/rfdetr/",
         "softwareVersion": "1.6.0",
+        "softwareRequirements": "Python >=3.10; torch >=2.2.0; torchvision >=0.17.0; transformers >=5.1.0,<6.0.0",
+        "identifier": [
+          {"@type": "PropertyValue", "propertyID": "Python package", "value": "rfdetr"},
+          {"@type": "PropertyValue", "propertyID": "GitHub repository", "value": "roboflow/rf-detr"},
+          {"@type": "PropertyValue", "propertyID": "arXiv", "value": "2511.09554"}
+        ],
         "releaseNotes": "https://github.com/roboflow/rf-detr/blob/main/CHANGELOG.md",
         "description": "RF-DETR is a real-time transformer architecture for object detection and instance segmentation by Roboflow. DINOv2 backbone, SOTA on COCO (60.1 AP50:95). ICLR 2026. Apache 2.0.",
+        "keywords": "RF-DETR, rfdetr, object detection, instance segmentation, real-time detection transformer, DINOv2, COCO, RF100-VL, ONNX, TensorRT",
         "featureList": [
           "Real-time object detection",
           "Instance segmentation",
@@ -129,6 +142,9 @@
         "license": "https://www.apache.org/licenses/LICENSE-2.0",
         "codeRepository": "https://github.com/roboflow/rf-detr",
         "programmingLanguage": "Python",
+        "runtimePlatform": "Python 3.10+",
+        "isAccessibleForFree": true,
+        "citation": "https://arxiv.org/abs/2511.09554",
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -148,7 +164,15 @@
         "name": "RF-DETR Documentation",
         "url": "https://rfdetr.roboflow.com/develop",
         "description": "Real-time transformer for object detection and instance segmentation. DINOv2 backbone, SOTA on COCO (60.1 AP50:95). Apache 2.0. Works with Python \u22653.10.",
-        "publisher": {"@type": "Organization", "name": "Roboflow", "url": "https://roboflow.com"}
+        "publisher": {"@type": "Organization", "name": "Roboflow", "url": "https://roboflow.com"},
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://rfdetr.roboflow.com/latest/?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
       }
     ]
   }
@@ -396,7 +420,7 @@
                 <li><a href="https://inference.roboflow.com">Inference</a></li>
                 <li><a href="https://supervision.roboflow.com">Supervision</a></li>
                 <li><a href="https://trackers.roboflow.com">Trackers</a></li>
-                <li><a href="https://rf-detr.roboflow.com">RF-DETR</a></li>
+                <li><a href="https://rfdetr.roboflow.com">RF-DETR</a></li>
                 <li><a href="https://maestro.roboflow.com">Maestro</a></li>
                 <li><a href="https://docs.roboflow.com">Roboflow</a></li>
             </ul>
@@ -2326,8 +2350,17 @@
 
 
 <h1 id="rf-detr-real-time-sota-detection-and-segmentation-model">RF-DETR: Real-Time SOTA Detection and Segmentation Model<a class="headerlink" href="#rf-detr-real-time-sota-detection-and-segmentation-model" title="Permanent link">&para;</a></h1>
-<p>RF-DETR is a real-time transformer architecture for object detection and instance segmentation developed by Roboflow. Built on a DINOv2 vision transformer backbone, RF-DETR delivers state-of-the-art accuracy and latency trade-offs on Microsoft COCO and RF100-VL.</p>
+<p>RF-DETR is a real-time transformer architecture for object detection and instance segmentation developed by Roboflow. Built on a DINOv2 vision transformer backbone, RF-DETR achieves state-of-the-art accuracy–latency trade-offs: RF-DETR-L reaches 56.5 AP50:95 on COCO at 6.8 ms (NVIDIA T4, TensorRT FP16), and RF-DETR-2XL achieves 60.1 AP50:95 — the first real-time model to exceed 60 AP on COCO. Accepted at <a href="https://arxiv.org/abs/2511.09554">ICLR 2026</a>.</p>
 <p>RF-DETR uses a DINOv2 vision transformer backbone and supports both detection and instance segmentation in a single, consistent API. Core models (Nano through Large) and all code are released under the Apache 2.0 license; XL and 2XLarge detection models require <code>rfdetr[plus]</code> and are provided under PML 1.0.</p>
+<p>Developed by Isaac Robinson, Peter Robicheaux, Fedor Popov, Deva Ramanan (CMU), and Neehar Peri (CMU) at <a href="https://roboflow.com">Roboflow</a>. If you use RF-DETR in your research, please cite:</p>
+<div class="language-bibtex highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">robinson2026rfdetr</span><span class="p">,</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="na">title</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="s">{RF-DETR: Real-Time Detection Transformer}</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="na">author</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="s">{Robinson, Isaac and Robicheaux, Peter and Popov, Fedor and Ramanan, Deva and Peri, Neehar}</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="na">booktitle</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{International Conference on Learning Representations (ICLR)}</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="na">year</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">{2026}</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="na">url</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="s">{https://arxiv.org/abs/2511.09554}</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">}</span>
+</span></code></pre></div>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
 <p>You can install and use <code>rfdetr</code> in a <a href="https://www.python.org/"><strong>Python&gt;=3.10</strong></a> environment. For detailed installation instructions, including installing from source, and setting up a local development environment, check out our <a href="learn/install/">install</a> page.</p>
 <div class="admonition example">
@@ -2339,14 +2372,14 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">pip</label><label for="__tabbed_1_2">uv</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>rfdetr
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>rfdetr
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>rfdetr
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>rfdetr
 </span></code></pre></div>
 <p>For uv projects:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>add<span class="w"> </span>rfdetr
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>add<span class="w"> </span>rfdetr
 </span></code></pre></div>
 </div>
 </div>
@@ -2404,7 +2437,7 @@
 <h2 id="benchmarks">Benchmarks<a class="headerlink" href="#benchmarks" title="Permanent link">&para;</a></h2>
 <p>RF-DETR achieves the best accuracy–latency trade-off among real-time object detection and instance segmentation models — both on COCO and on the more demanding RF100-VL benchmark (domain adaptability). For detailed benchmark tables and methodology, check out our <a href="learn/benchmarks/">benchmarks</a> page.</p>
 <h3 id="detection">Detection<a class="headerlink" href="#detection" title="Permanent link">&para;</a></h3>
-<p><img alt="Pareto front – detection" src="https://storage.googleapis.com/com-roboflow-marketing/rf-detr/rf_detr_1-4_latency_accuracy_object_detection.png" style="max-width: 840px; height: auto;" /></p>
+<p><img alt="Pareto front — detection accuracy vs latency: RF-DETR-2XL achieves 78.5 COCO AP50 (60.1 AP50:95) at 17.2 ms; RF-DETR-L achieves 75.1 AP50 at 6.8 ms, outperforming YOLO11x at comparable latency" src="https://storage.googleapis.com/com-roboflow-marketing/rf-detr/rf_detr_1-4_latency_accuracy_object_detection.png" width="840" height="630" style="max-width: 840px; height: auto;" /></p>
 <table>
 <thead>
 <tr>
@@ -2482,7 +2515,7 @@
 </tbody>
 </table>
 <h3 id="segmentation">Segmentation<a class="headerlink" href="#segmentation" title="Permanent link">&para;</a></h3>
-<p><img alt="Pareto front – segmentation" src="https://storage.googleapis.com/com-roboflow-marketing/rf-detr/rf_detr_1-4_latency_accuracy_instance_segmentation.png" style="max-width: 840px; height: auto;" /></p>
+<p><img alt="Pareto front — segmentation accuracy vs latency: RF-DETR-Seg-2XL achieves 73.1 COCO AP50 (49.9 AP50:95) at 21.8 ms; RF-DETR-Seg-L achieves 70.5 AP50 at 8.8 ms" src="https://storage.googleapis.com/com-roboflow-marketing/rf-detr/rf_detr_1-4_latency_accuracy_instance_segmentation.png" width="840" height="630" style="max-width: 840px; height: auto;" /></p>
 <table>
 <thead>
 <tr>
@@ -2586,7 +2619,7 @@ RF-DETR-Nano (2.3 ms, 67.6 AP50 on COCO) is best for edge and real-time applic
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="April 23, 2026 15:22:59 UTC">2026-04-23</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_datetime" title="April 25, 2026 07:11:31 UTC">2026-04-25 07:11:31</span>
   </span>
 
     
@@ -2620,7 +2653,7 @@ RF-DETR-Nano (2.3 ms, 67.6 AP50 on COCO) is best for edge and real-time applic
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Roboflow 2025. All rights reserved.
+      Roboflow 2025–2026. All rights reserved.
     </div>
   
   
