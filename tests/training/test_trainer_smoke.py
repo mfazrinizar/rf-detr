@@ -49,6 +49,19 @@ def _make_trainer() -> Trainer:
     )
 
 
+class _MixedAnnotationDataset(_FakeDataset):
+    """Fake detection dataset with both annotated and annotation-free images."""
+
+    def __getitem__(self, idx: int) -> tuple[torch.Tensor, dict[str, torch.Tensor]]:
+        """Return annotated targets for even indices and empty targets for odd indices."""
+        image, target = super().__getitem__(idx)
+        if idx % 2 == 1:
+            target = dict(target)
+            target["boxes"] = torch.empty((0, 4), dtype=torch.float32)
+            target["labels"] = torch.empty((0,), dtype=torch.long)
+        return image, target
+
+
 # ---------------------------------------------------------------------------
 # Smoke test classes
 # ---------------------------------------------------------------------------
@@ -393,6 +406,41 @@ def test_ddp_spawn_fit_runs_without_error(base_model_config, base_train_config):
 
     trainer = build_trainer(tc, mc, accelerator="cpu", fast_dev_run=2)
     trainer.fit(module, datamodule=datamodule)
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="gloo DDP spawn unsupported on Windows CI")
+def test_ddp_spawn_fit_and_test_with_empty_annotations(base_model_config, base_train_config) -> None:
+    """DDP fit and test must support mixed annotated and annotation-free train/val/test images."""
+    mc = base_model_config()
+    tc = base_train_config(use_ema=False, run_test=False, devices=2, strategy="ddp_spawn", epochs=1)
+
+    with (
+        patch("rfdetr.training.module_model.build_model_from_config", return_value=_TinyModel()),
+        patch(
+            "rfdetr.training.module_model.build_criterion_from_config",
+            return_value=(_FakeCriterion(), _FakePostProcess()),
+        ),
+    ):
+        module = _DDPModule(mc, tc)
+
+    datamodule = RFDETRDataModule(mc, tc)
+    datamodule._dataset_train = _MixedAnnotationDataset(length=20)
+    datamodule._dataset_val = _MixedAnnotationDataset(length=8)
+    datamodule._dataset_test = _MixedAnnotationDataset(length=8)
+
+    trainer = build_trainer(
+        tc,
+        mc,
+        accelerator="cpu",
+        limit_train_batches=2,
+        limit_val_batches=2,
+        limit_test_batches=2,
+        enable_progress_bar=False,
+        enable_model_summary=False,
+        logger=False,
+    )
+    trainer.fit(module, datamodule=datamodule)
+    trainer.test(module, datamodule=datamodule)
 
 
 @pytest.mark.skipif(sys.platform == "win32", reason="gloo DDP spawn unsupported on Windows CI")

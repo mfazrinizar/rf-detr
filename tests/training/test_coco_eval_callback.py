@@ -53,6 +53,17 @@ def _detection_targets(cx=0.5, cy=0.5, w=0.1, h=0.1, label=1) -> list[dict]:
     ]
 
 
+def _empty_detection_targets() -> list[dict]:
+    """Return a single-image target dict without annotations."""
+    return [
+        {
+            "boxes": torch.empty((0, 4), dtype=torch.float32),
+            "labels": torch.empty((0,), dtype=torch.long),
+            "orig_size": torch.tensor([100, 200]),
+        }
+    ]
+
+
 def _minimal_metrics(pfx: str = "", max_dets: int = 500) -> dict:
     """Return a minimal torchmetrics-style metrics dict."""
     return {
@@ -119,11 +130,23 @@ class TestSetup:
         cb.setup(_make_trainer(), _make_pl_module(), stage="fit")
         assert cb.map_metric._coco_backend.backend == "faster_coco_eval"
 
+    def test_detection_disables_torchmetrics_sync_on_compute(self) -> None:
+        """Detection mAP sync is handled by RF-DETR, not torchmetrics implicit DDP sync."""
+        cb = COCOEvalCallback(segmentation=False)
+        cb.setup(_make_trainer(), _make_pl_module(), stage="fit")
+        assert cb.map_metric.sync_on_compute is False
+
     def test_segmentation_uses_faster_coco_eval_backend(self) -> None:
         """Segmentation mode always uses faster_coco_eval backend."""
         cb = COCOEvalCallback(segmentation=True)
         cb.setup(_make_trainer(), _make_pl_module(), stage="fit")
         assert cb.map_metric._coco_backend.backend == "faster_coco_eval"
+
+    def test_segmentation_disables_torchmetrics_sync_on_compute(self) -> None:
+        """Segmentation mAP sync is handled by RF-DETR, not torchmetrics implicit DDP sync."""
+        cb = COCOEvalCallback(segmentation=True)
+        cb.setup(_make_trainer(), _make_pl_module(), stage="fit")
+        assert cb.map_metric.sync_on_compute is False
 
 
 class TestOnFitStart:
@@ -226,7 +249,7 @@ class TestBatchEndCommon:
         cb.setup(_make_trainer(), _make_pl_module(), stage=stage)
         captured = {}
 
-        def _capture_update(preds, targets):
+        def _capture_update(preds: list[dict[str, torch.Tensor]], targets: list[dict[str, torch.Tensor]]) -> None:
             captured["targets"] = targets
 
         cb.map_metric = MagicMock(name="map_metric")
@@ -245,6 +268,158 @@ class TestBatchEndCommon:
         assert boxes[0, 1].item() == pytest.approx(45.0)
         assert boxes[0, 2].item() == pytest.approx(110.0)
         assert boxes[0, 3].item() == pytest.approx(55.0)
+
+    def test_empty_targets_are_valid_metric_inputs(self, hook, stage) -> None:
+        """Images without annotations are still accumulated for mAP/F1 evaluation."""
+        cb = COCOEvalCallback()
+        cb.setup(_make_trainer(), _make_pl_module(), stage=stage)
+        captured = {}
+
+        def _capture_update(preds: list[dict[str, torch.Tensor]], targets: list[dict[str, torch.Tensor]]) -> None:
+            captured["preds"] = preds
+            captured["targets"] = targets
+
+        cb.map_metric = MagicMock(name="map_metric")
+        cb.map_metric.update.side_effect = _capture_update
+
+        outputs = {"results": _detection_preds(1), "targets": _empty_detection_targets()}
+        getattr(cb, hook)(_make_trainer(), _make_pl_module(), outputs, None, 0)
+
+        assert captured["targets"][0]["boxes"].shape == (0, 4)
+        assert captured["targets"][0]["labels"].shape == (0,)
+        assert sum(v["total_gt"] for v in cb._f1_local.values()) == 0
+
+
+class TestDistributedMapMerge:
+    """Distributed mAP computation avoids torchmetrics implicit sync."""
+
+    def test_rank_without_annotations_merges_with_rank_that_has_annotations(self) -> None:
+        """Manual state gathering computes global mAP when one rank only sees negative images."""
+        cb = COCOEvalCallback()
+        cb.setup(_make_trainer(), _make_pl_module(), stage="fit")
+        cb.map_metric.update(_detection_preds(0), _empty_detection_targets())
+
+        remote_metric = cb._new_map_metric()
+        remote_metric.update(
+            [
+                {
+                    "boxes": torch.tensor([[90.0, 45.0, 110.0, 55.0]]),
+                    "scores": torch.tensor([0.9]),
+                    "labels": torch.tensor([1]),
+                }
+            ],
+            cb._convert_targets(_detection_targets()),
+        )
+
+        gathered_states = [
+            cb._map_metric_state_to_cpu(cb.map_metric),
+            cb._map_metric_state_to_cpu(remote_metric),
+        ]
+        with (
+            patch("rfdetr.training.callbacks.coco_eval.get_world_size", return_value=2),
+            patch("rfdetr.training.callbacks.coco_eval.all_gather", return_value=gathered_states) as mock_gather,
+        ):
+            metrics = cb._compute_map_metrics(cb.map_metric)
+
+        mock_gather.assert_called_once()
+        assert metrics["map"].item() == pytest.approx(1.0)
+        assert metrics["map_50"].item() == pytest.approx(1.0)
+
+    def test_all_ranks_with_only_empty_annotations_compute_sentinel_metrics(self) -> None:
+        """Manual state gathering handles the all-negative-image DDP case."""
+        cb = COCOEvalCallback()
+        cb.setup(_make_trainer(), _make_pl_module(), stage="fit")
+        cb.map_metric.update(_detection_preds(0), _empty_detection_targets())
+
+        remote_metric = cb._new_map_metric()
+        remote_metric.update(_detection_preds(0), _empty_detection_targets())
+
+        gathered_states = [
+            cb._map_metric_state_to_cpu(cb.map_metric),
+            cb._map_metric_state_to_cpu(remote_metric),
+        ]
+        with (
+            patch("rfdetr.training.callbacks.coco_eval.get_world_size", return_value=2),
+            patch("rfdetr.training.callbacks.coco_eval.all_gather", return_value=gathered_states) as mock_gather,
+        ):
+            metrics = cb._compute_map_metrics(cb.map_metric)
+
+        mock_gather.assert_called_once()
+        assert metrics["map"].item() == pytest.approx(-1.0)
+        assert metrics["map_50"].item() == pytest.approx(-1.0)
+        assert metrics["classes"].numel() == 0
+
+    def test_segmentation_state_merges_empty_and_annotated_ranks(self) -> None:
+        """Manual state gathering preserves segmentation mask state across ranks."""
+        cb = COCOEvalCallback(segmentation=True)
+        cb.setup(_make_trainer(), _make_pl_module(), stage="fit")
+        empty_mask = torch.empty((0, 16, 16), dtype=torch.bool)
+        cb.map_metric.update(
+            [
+                {
+                    "boxes": torch.empty((0, 4), dtype=torch.float32),
+                    "scores": torch.empty((0,), dtype=torch.float32),
+                    "labels": torch.empty((0,), dtype=torch.long),
+                    "masks": empty_mask,
+                }
+            ],
+            [
+                {
+                    "boxes": torch.empty((0, 4), dtype=torch.float32),
+                    "labels": torch.empty((0,), dtype=torch.long),
+                    "masks": empty_mask,
+                }
+            ],
+        )
+
+        remote_metric = cb._new_map_metric()
+        mask = torch.zeros((1, 16, 16), dtype=torch.bool)
+        mask[:, 4:10, 4:10] = True
+        remote_metric.update(
+            [
+                {
+                    "boxes": torch.tensor([[4.0, 4.0, 10.0, 10.0]]),
+                    "scores": torch.tensor([0.9]),
+                    "labels": torch.tensor([1]),
+                    "masks": mask,
+                }
+            ],
+            [
+                {
+                    "boxes": torch.tensor([[4.0, 4.0, 10.0, 10.0]]),
+                    "labels": torch.tensor([1]),
+                    "masks": mask,
+                }
+            ],
+        )
+
+        gathered_states = [
+            cb._map_metric_state_to_cpu(cb.map_metric),
+            cb._map_metric_state_to_cpu(remote_metric),
+        ]
+        with (
+            patch("rfdetr.training.callbacks.coco_eval.get_world_size", return_value=2),
+            patch("rfdetr.training.callbacks.coco_eval.all_gather", return_value=gathered_states),
+        ):
+            metrics = cb._compute_map_metrics(cb.map_metric)
+
+        assert metrics["segm_map_50"].item() == pytest.approx(1.0)
+
+    def test_single_process_compute_does_not_gather(self) -> None:
+        """Single-process mAP still uses the local metric directly."""
+        cb = COCOEvalCallback()
+        cb.setup(_make_trainer(), _make_pl_module(), stage="fit")
+        cb.map_metric = MagicMock(name="map_metric")
+        cb.map_metric.compute.return_value = _minimal_metrics()
+
+        with (
+            patch("rfdetr.training.callbacks.coco_eval.get_world_size", return_value=1),
+            patch("rfdetr.training.callbacks.coco_eval.all_gather") as mock_gather,
+        ):
+            metrics = cb._compute_map_metrics(cb.map_metric)
+
+        mock_gather.assert_not_called()
+        assert metrics["map"].item() == pytest.approx(0.4)
 
 
 class TestOnTestBatchEnd:
