@@ -148,6 +148,19 @@ class TestSetup:
         cb.setup(_make_trainer(), _make_pl_module(), stage="fit")
         assert cb.map_metric.sync_on_compute is False
 
+    def test_eval_metric_logging_moves_values_to_module_device(self) -> None:
+        """sync_dist evaluation logs use module-device tensors for NCCL compatibility."""
+        cb = COCOEvalCallback()
+        module = _make_pl_module()
+        module.device = torch.device("meta")
+
+        cb._log_eval_metric(module, "val/mAP_50_95", torch.tensor(0.5), prog_bar=True)
+
+        logged_value = module.log.call_args.args[1]
+        assert logged_value.device.type == "meta"
+        assert module.log.call_args.kwargs["sync_dist"] is True
+        assert module.log.call_args.kwargs["prog_bar"] is True
+
 
 class TestOnFitStart:
     """on_fit_start() populates class names from the datamodule."""
