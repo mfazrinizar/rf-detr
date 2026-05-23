@@ -22,6 +22,19 @@ from rfdetr.evaluation.matching import (
     merge_matching_data,
 )
 from rfdetr.utilities.box_ops import box_cxcywh_to_xyxy
+from rfdetr.utilities.distributed import all_gather, get_world_size
+
+_MAP_STATE_KEYS: tuple[str, ...] = (
+    "detection_box",
+    "detection_mask",
+    "detection_scores",
+    "detection_labels",
+    "groundtruth_box",
+    "groundtruth_mask",
+    "groundtruth_labels",
+    "groundtruth_crowds",
+    "groundtruth_area",
+)
 
 
 class COCOEvalCallback(Callback):
@@ -86,13 +99,7 @@ class COCOEvalCallback(Callback):
             pl_module: The LightningModule.
             stage: One of ``"fit"``, ``"validate"``, ``"test"``, ``"predict"``.
         """
-        iou_type: Any = ["bbox", "segm"] if self._segmentation else "bbox"
-        kwargs: dict[str, Any] = dict(
-            class_metrics=True,
-            max_detection_thresholds=[1, 10, self._max_dets],
-        )
-        kwargs["backend"] = "faster_coco_eval"
-        self.map_metric = MeanAveragePrecision(iou_type=iou_type, **kwargs)
+        self.map_metric = self._new_map_metric()
         # Separate metric for the EMA model; created lazily in on_validation_batch_end.
         self.map_metric_ema: Any = None
 
@@ -169,13 +176,7 @@ class COCOEvalCallback(Callback):
         ema_cb = self._get_ema_callback(trainer)
         if ema_cb is not None and ema_cb._average_model is not None:
             if self.map_metric_ema is None:
-                ema_iou_type: Any = ["bbox", "segm"] if self._segmentation else "bbox"
-                self.map_metric_ema = MeanAveragePrecision(
-                    iou_type=ema_iou_type,
-                    class_metrics=True,
-                    max_detection_thresholds=[1, 10, self._max_dets],
-                    backend="faster_coco_eval",
-                ).to(pl_module.device)
+                self.map_metric_ema = self._new_map_metric().to(pl_module.device)
             samples, _ = batch
             orig_sizes = torch.stack([t["orig_size"] for t in outputs["targets"]]).to(pl_module.device)
             ema_underlying = ema_cb._average_model.module.model
@@ -264,7 +265,7 @@ class COCOEvalCallback(Callback):
             pl_module: The LightningModule.
             split: Metric namespace — ``"val"`` or ``"test"``.
         """
-        metrics = self.map_metric.compute()
+        metrics = self._compute_map_metrics(self.map_metric)
 
         # torchmetrics prefixes all keys when iou_type is a list (e.g. "bbox_map")
         pfx = "bbox_" if self._segmentation else ""
@@ -277,10 +278,10 @@ class COCOEvalCallback(Callback):
             f"mAR @{self._max_dets}": float(metrics[mar_key]),
         }
 
-        pl_module.log(f"{split}/mAP_50_95", metrics[f"{pfx}map"], prog_bar=True)
-        pl_module.log(f"{split}/mAP_50", metrics[f"{pfx}map_50"], prog_bar=True)
-        pl_module.log(f"{split}/mAP_75", metrics[f"{pfx}map_75"])
-        pl_module.log(f"{split}/mAR", metrics[mar_key])
+        pl_module.log(f"{split}/mAP_50_95", metrics[f"{pfx}map"], prog_bar=True, sync_dist=True)
+        pl_module.log(f"{split}/mAP_50", metrics[f"{pfx}map_50"], prog_bar=True, sync_dist=True)
+        pl_module.log(f"{split}/mAP_75", metrics[f"{pfx}map_75"], sync_dist=True)
+        pl_module.log(f"{split}/mAR", metrics[mar_key], sync_dist=True)
 
         # Write directly into callback_metrics so ModelCheckpoint / EarlyStopping
         # read fresh values each epoch.  pl_module.log() from a callback's
@@ -294,16 +295,16 @@ class COCOEvalCallback(Callback):
         # EMA metrics — computed from a separate EMA forward pass accumulated
         # in on_validation_batch_end, so base and EMA values are independent.
         if self.map_metric_ema is not None:
-            ema_metrics = self.map_metric_ema.compute()
-            pl_module.log(f"{split}/ema_mAP_50_95", ema_metrics[f"{pfx}map"], prog_bar=True)
-            pl_module.log(f"{split}/ema_mAP_50", ema_metrics[f"{pfx}map_50"])
-            pl_module.log(f"{split}/ema_mAR", ema_metrics[mar_key])
+            ema_metrics = self._compute_map_metrics(self.map_metric_ema)
+            pl_module.log(f"{split}/ema_mAP_50_95", ema_metrics[f"{pfx}map"], prog_bar=True, sync_dist=True)
+            pl_module.log(f"{split}/ema_mAP_50", ema_metrics[f"{pfx}map_50"], sync_dist=True)
+            pl_module.log(f"{split}/ema_mAR", ema_metrics[mar_key], sync_dist=True)
             trainer.callback_metrics[f"{split}/ema_mAP_50_95"] = ema_metrics[f"{pfx}map"].detach().cpu()
             trainer.callback_metrics[f"{split}/ema_mAP_50"] = ema_metrics[f"{pfx}map_50"].detach().cpu()
             trainer.callback_metrics[f"{split}/ema_mAR"] = ema_metrics[mar_key].detach().cpu()
             if self._segmentation:
-                pl_module.log(f"{split}/ema_segm_mAP_50_95", ema_metrics["segm_map"])
-                pl_module.log(f"{split}/ema_segm_mAP_50", ema_metrics["segm_map_50"])
+                pl_module.log(f"{split}/ema_segm_mAP_50_95", ema_metrics["segm_map"], sync_dist=True)
+                pl_module.log(f"{split}/ema_segm_mAP_50", ema_metrics["segm_map_50"], sync_dist=True)
                 trainer.callback_metrics[f"{split}/ema_segm_mAP_50_95"] = ema_metrics["segm_map"].detach().cpu()
                 trainer.callback_metrics[f"{split}/ema_segm_mAP_50"] = ema_metrics["segm_map_50"].detach().cpu()
             self.map_metric_ema.reset()
@@ -311,8 +312,8 @@ class COCOEvalCallback(Callback):
         if self._segmentation:
             overall["segm mAP 50:95"] = float(metrics["segm_map"])
             overall["segm mAP 50"] = float(metrics["segm_map_50"])
-            pl_module.log(f"{split}/segm_mAP_50_95", metrics["segm_map"])
-            pl_module.log(f"{split}/segm_mAP_50", metrics["segm_map_50"])
+            pl_module.log(f"{split}/segm_mAP_50_95", metrics["segm_map"], sync_dist=True)
+            pl_module.log(f"{split}/segm_mAP_50", metrics["segm_map_50"], sync_dist=True)
             trainer.callback_metrics[f"{split}/segm_mAP_50_95"] = metrics["segm_map"].detach().cpu()
             trainer.callback_metrics[f"{split}/segm_mAP_50"] = metrics["segm_map_50"].detach().cpu()
 
@@ -330,9 +331,9 @@ class COCOEvalCallback(Callback):
             overall["F1"] = float(best["macro_f1"])
             overall["Precision"] = float(best["macro_precision"])
             overall["Recall"] = float(best["macro_recall"])
-            pl_module.log(f"{split}/F1", float(best["macro_f1"]), prog_bar=True)
-            pl_module.log(f"{split}/precision", float(best["macro_precision"]))
-            pl_module.log(f"{split}/recall", float(best["macro_recall"]))
+            pl_module.log(f"{split}/F1", float(best["macro_f1"]), prog_bar=True, sync_dist=True)
+            pl_module.log(f"{split}/precision", float(best["macro_precision"]), sync_dist=True)
+            pl_module.log(f"{split}/recall", float(best["macro_recall"]), sync_dist=True)
             trainer.callback_metrics[f"{split}/F1"] = torch.tensor(float(best["macro_f1"]))
             trainer.callback_metrics[f"{split}/precision"] = torch.tensor(float(best["macro_precision"]))
             trainer.callback_metrics[f"{split}/recall"] = torch.tensor(float(best["macro_recall"]))
@@ -346,9 +347,9 @@ class COCOEvalCallback(Callback):
             overall["F1"] = 0.0
             overall["Precision"] = 0.0
             overall["Recall"] = 0.0
-            pl_module.log(f"{split}/F1", 0.0, prog_bar=True)
-            pl_module.log(f"{split}/precision", 0.0)
-            pl_module.log(f"{split}/recall", 0.0)
+            pl_module.log(f"{split}/F1", 0.0, prog_bar=True, sync_dist=True)
+            pl_module.log(f"{split}/precision", 0.0, sync_dist=True)
+            pl_module.log(f"{split}/recall", 0.0, sync_dist=True)
             trainer.callback_metrics[f"{split}/F1"] = torch.tensor(0.0)
             trainer.callback_metrics[f"{split}/precision"] = torch.tensor(0.0)
             trainer.callback_metrics[f"{split}/recall"] = torch.tensor(0.0)
@@ -388,6 +389,95 @@ class COCOEvalCallback(Callback):
                 return callback
         return None
 
+    def _new_map_metric(self) -> MeanAveragePrecision:
+        """Create a mAP metric whose distributed sync is controlled by this callback."""
+        iou_type: Any = ["bbox", "segm"] if self._segmentation else "bbox"
+        return MeanAveragePrecision(
+            iou_type=iou_type,
+            class_metrics=True,
+            max_detection_thresholds=[1, 10, self._max_dets],
+            backend="faster_coco_eval",
+            sync_on_compute=False,
+        )
+
+    def _map_metric_state_to_cpu(self, metric: MeanAveragePrecision) -> dict[str, list[Any]]:
+        """Return a CPU snapshot of the torchmetrics mAP state lists.
+
+        Args:
+            metric: The local ``MeanAveragePrecision`` instance.
+
+        Returns:
+            Pickle-friendly state lists detached from the metric device.
+        """
+        metric_state_keys = set(getattr(metric, "_defaults", {}))
+        unsupported_keys = metric_state_keys - set(_MAP_STATE_KEYS)
+        if unsupported_keys:
+            unsupported = ", ".join(sorted(unsupported_keys))
+            raise RuntimeError(
+                "MeanAveragePrecision introduced unsupported state keys for RF-DETR distributed evaluation: "
+                f"{unsupported}. Update _MAP_STATE_KEYS before using this torchmetrics version."
+            )
+
+        state: dict[str, list[Any]] = {}
+        for key in _MAP_STATE_KEYS:
+            if not hasattr(metric, key):
+                raise RuntimeError(
+                    "MeanAveragePrecision is missing expected state key "
+                    f"{key!r}. Update RF-DETR distributed mAP gathering for this torchmetrics version."
+                )
+            values = getattr(metric, key, [])
+            state[key] = [value.detach().cpu() if isinstance(value, torch.Tensor) else value for value in values]
+        return state
+
+    def _load_map_metric_state(
+        self,
+        metric: MeanAveragePrecision,
+        gathered_states: list[dict[str, list[Any]]],
+    ) -> None:
+        """Load gathered mAP state into a fresh metric instance.
+
+        Args:
+            metric: Empty metric that will receive the merged state.
+            gathered_states: Per-rank state snapshots from ``all_gather``.
+        """
+        update_count = 0
+        for key in _MAP_STATE_KEYS:
+            merged_values: list[Any] = []
+            for state in gathered_states:
+                values = state.get(key, [])
+                if key == "detection_box":
+                    update_count += len(values)
+                for value in values:
+                    merged_values.append(value.clone() if isinstance(value, torch.Tensor) else value)
+            setattr(metric, key, merged_values)
+
+        # Torchmetrics stores boxes as xywh and segmentation masks as backend-specific RLE tuples after update(), so
+        # replaying through the public update() API would corrupt those states. Setting _update_count keeps compute()
+        # from warning about directly assigned states while preserving torchmetrics' own internal representation.
+        if hasattr(metric, "_update_count"):
+            metric._update_count = update_count
+
+    def _compute_map_metrics(self, metric: MeanAveragePrecision) -> dict[str, Any]:
+        """Compute mAP after explicitly gathering per-rank metric state.
+
+        This method performs a distributed collective when world size is greater than one. All ranks must call it in
+        the same order at epoch end so the mAP gather remains aligned with the later F1 gather and Lightning metric-log
+        reductions.
+
+        Args:
+            metric: Local ``MeanAveragePrecision`` instance accumulated during the loop.
+
+        Returns:
+            Metric dictionary matching ``MeanAveragePrecision.compute()``.
+        """
+        if get_world_size() == 1:
+            return metric.compute()
+
+        gathered_states = all_gather(self._map_metric_state_to_cpu(metric))
+        merged_metric = self._new_map_metric()
+        self._load_map_metric_state(merged_metric, gathered_states)
+        return merged_metric.compute()
+
     def _build_per_class_rows(
         self,
         metrics: dict[str, Any],
@@ -425,7 +515,7 @@ class COCOEvalCallback(Callback):
                 continue
             idx = int(class_id)
             name = self._cat_id_to_name.get(idx, str(idx))
-            pl_module.log(f"{split}/AP/{name}", ap)
+            pl_module.log(f"{split}/AP/{name}", ap, sync_dist=True)
             row: dict[str, Any] = {"name": name, "ap": ap_f, "ar": ar_f}
             row.update(f1_by_cid.get(idx, {"f1": float("nan"), "precision": float("nan"), "recall": float("nan")}))
             per_class.append(row)
