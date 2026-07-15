@@ -87,7 +87,7 @@
   
   
   
-  <meta property="article:modified_time" content="2026-05-07T20:47:26">
+  <meta property="article:modified_time" content="2026-06-25T16:26:03">
   
   <script type="application/ld+json">
   {
@@ -102,7 +102,7 @@
     "inLanguage": "en",
     "keywords": "RF-DETR, rfdetr, object detection, instance segmentation, computer vision, Roboflow",
     "datePublished": "2025-03-01",
-    "dateModified": "2026-05-07T20:47:26",
+    "dateModified": "2026-06-25T16:26:03",
     "image": "https://storage.googleapis.com/com-roboflow-marketing/rf-detr/rf_detr_1-4_latency_accuracy_object_detection.png",
     "author": {"@type": "Organization", "name": "Roboflow", "url": "https://roboflow.com"},
     "publisher": {"@type": "Organization", "name": "Roboflow", "url": "https://roboflow.com"},
@@ -185,7 +185,7 @@
       data-md-component="logo"
     >
       
-  <img src="../../assets/roboflow-logo.svg" alt="logo">
+  <img src="../../assets/roboflow-logo.svg" alt="RF-DETR" width="24" height="24">
 
     </a>
 
@@ -214,7 +214,7 @@
             id="item-logo"
             >
             
-  <img src="../../assets/roboflow-logo.svg" alt="logo">
+  <img src="../../assets/roboflow-logo.svg" alt="RF-DETR" width="24" height="24">
 
             </a>
             
@@ -236,7 +236,7 @@
         </label>
 
         <!-- Search interface -->
-        <div class="md-search" data-md-component="search" role="dialog">
+        <div class="md-search" data-md-component="search" role="dialog" aria-modal="true" aria-label="Search">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -274,7 +274,7 @@
 
     <ul class="header-list">
         <li style="align-items: center;" id="resources-list">
-            <label for="dropdown-resources"><span>Resources <img src="https://ka-p.fontawesome.com/releases/v6.6.0/svgs/regular/chevron-down.svg?v=2&token=a463935e93" style="height: 0.5rem;" /></span></label>
+            <label for="dropdown-resources"><span>Resources <span class="header-chevron" aria-hidden="true"></span></span></label>
             <input type="radio" name="dropdown" id="dropdown-resources" style="display: none;" />
             <ul class="resources-sublist sublist">
                 <li><a href="https://blog.roboflow.com">Blog</a></li>
@@ -284,7 +284,7 @@
             </ul>
         </li>
         <li style="align-items: center;" id="products-list">
-            <label for="dropdown-products"><span>Docs <img src="https://ka-p.fontawesome.com/releases/v6.6.0/svgs/regular/chevron-down.svg?v=2&token=a463935e93" style="height: 0.5rem;" /></span></label>
+            <label for="dropdown-products"><span>Docs <span class="header-chevron" aria-hidden="true"></span></span></label>
             <input type="radio" name="dropdown" id="dropdown-products" style="display: none;" />
             <ul class="products-sublist sublist">
                 <li><a href="https://inference.roboflow.com">Inference</a></li>
@@ -295,79 +295,72 @@
                 <li><a href="https://docs.roboflow.com">Roboflow</a></li>
             </ul>
         </li>
-        <script>
-          document.addEventListener('click', function(event) {
-            const resourcesList = document.getElementById('resources-list');
-            const productsList = document.getElementById('products-list');
-            const dropdownResources = document.getElementById('dropdown-resources');
-            const dropdownProducts = document.getElementById('dropdown-products');
-
-            if (!resourcesList.contains(event.target)) {
-              dropdownResources.checked = false;
-            }
-            if (!productsList.contains(event.target)) {
-              dropdownProducts.checked = false;
-            }
-          });
-          // on mouse over
-          document.getElementById('resources-list').addEventListener('mouseover', function() {
-            document.getElementById('dropdown-resources').checked = true;
-          });
-          document.getElementById('products-list').addEventListener('mouseover', function() {
-            document.getElementById('dropdown-products').checked = true;
-          });
-          // on mouse out
-          document.getElementById('resources-list').addEventListener('mouseout', function() {
-            // if not hovering over the sublist or the label, uncheck the dropdown
-            // wait 1 sec
-            setTimeout(function() {
-              if (!document.querySelector('.resources-sublist:hover') && !document.querySelector('#resources-list:hover')) {
-                document.getElementById('dropdown-resources').checked = false;
-              }
-            }, 350);
-          });
-          // if mouseout of sublist, uncheck immediately
-          document.querySelector('.resources-sublist').addEventListener('mouseout', function() {
-            setTimeout(function() {
-              if (!document.querySelector('.resources-sublist:hover') && !document.querySelector('#resources-list:hover')) {
-                document.getElementById('dropdown-resources').checked = false;
-              }
-            }, 450);
-          });
-          document.getElementById('products-list').addEventListener('mouseout', function() {
-            // if not hovering over the sublist, uncheck the dropdown
-            // wait 1 sec
-            setTimeout(function() {
-              if (!document.querySelector('.products-sublist:hover') && !document.querySelector('#products-list:hover')) {
-                document.getElementById('dropdown-products').checked = false;
-              }
-            }, 500);
-          });
-          // if mouseout of sublist, uncheck immediately
-          document.querySelector('.products-sublist').addEventListener('mouseout', function() {
-            setTimeout(function() {
-              if (!document.querySelector('.products-sublist:hover') && !document.querySelector('#products-list:hover')) {
-                document.getElementById('dropdown-products').checked = false;
-              }
-            }, 500);
-          });
-
-        </script>
-        <style>
-          #dropdown-resources:checked ~ .resources-sublist {
-            display: block;
-          }
-          #dropdown-products:checked ~ .products-sublist {
-            display: block;
-          }
-          /* Hide dropdown if clicking outside */
-          body:not(:has(#dropdown-resources:checked)) .resources-sublist,
-          body:not(:has(#dropdown-products:checked)) .products-sublist {
-            display: none;
-          }
-        </style>
-        <a href="https://github.com/roboflow/rf-detr"><li class="header-btn" style="border-radius: 5px; color: white; background: var(--md-typeset-a-color); padding-top: 0.25rem; padding-left: 0.5rem; padding-bottom: 0.25rem; padding-right: 0.5rem; border: 1px solid #8315F9;">Go to GitHub</li></a>
+        <li>
+          <a href="https://github.com/roboflow/rf-detr" class="header-btn" style="border-radius: 5px; color: white; background: var(--md-typeset-a-color); padding-top: 0.25rem; padding-left: 0.5rem; padding-bottom: 0.25rem; padding-right: 0.5rem; border: 1px solid #8315F9;">Go to GitHub</a>
+        </li>
     </ul>
+    <script>
+      document.addEventListener('click', function(event) {
+        const resourcesList = document.getElementById('resources-list');
+        const productsList = document.getElementById('products-list');
+        const dropdownResources = document.getElementById('dropdown-resources');
+        const dropdownProducts = document.getElementById('dropdown-products');
+
+        if (!resourcesList.contains(event.target)) {
+          dropdownResources.checked = false;
+        }
+        if (!productsList.contains(event.target)) {
+          dropdownProducts.checked = false;
+        }
+      });
+      document.getElementById('resources-list').addEventListener('mouseover', function() {
+        document.getElementById('dropdown-resources').checked = true;
+      });
+      document.getElementById('products-list').addEventListener('mouseover', function() {
+        document.getElementById('dropdown-products').checked = true;
+      });
+      document.getElementById('resources-list').addEventListener('mouseout', function() {
+        setTimeout(function() {
+          if (!document.querySelector('.resources-sublist:hover') && !document.querySelector('#resources-list:hover')) {
+            document.getElementById('dropdown-resources').checked = false;
+          }
+        }, 350);
+      });
+      document.querySelector('.resources-sublist').addEventListener('mouseout', function() {
+        setTimeout(function() {
+          if (!document.querySelector('.resources-sublist:hover') && !document.querySelector('#resources-list:hover')) {
+            document.getElementById('dropdown-resources').checked = false;
+          }
+        }, 450);
+      });
+      document.getElementById('products-list').addEventListener('mouseout', function() {
+        setTimeout(function() {
+          if (!document.querySelector('.products-sublist:hover') && !document.querySelector('#products-list:hover')) {
+            document.getElementById('dropdown-products').checked = false;
+          }
+        }, 500);
+      });
+      document.querySelector('.products-sublist').addEventListener('mouseout', function() {
+        setTimeout(function() {
+          if (!document.querySelector('.products-sublist:hover') && !document.querySelector('#products-list:hover')) {
+            document.getElementById('dropdown-products').checked = false;
+          }
+        }, 500);
+      });
+      function labelCurrentVersion() {
+        document.querySelectorAll('.md-version__current').forEach(function(button) {
+          const label = button.textContent.trim();
+          if (label) {
+            button.setAttribute('aria-label', label);
+          }
+        });
+      }
+      labelCurrentVersion();
+      const versionMenu = document.querySelector('.md-version');
+      if (versionMenu) {
+        new MutationObserver(labelCurrentVersion).observe(versionMenu, { childList: true, subtree: true });
+      }
+    </script>
   </nav>
 
   <!-- Navigation tabs (sticky) -->
@@ -404,35 +397,15 @@
   
     
     
+      
+  
+  
+  
+  
+    
+    
       <li class="md-tabs__item">
         <a href="../../getting-started/install/" class="md-tabs__link">
-          
-  
-  
-  Getting Started
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../learn/run/detection/" class="md-tabs__link">
           
   
   
@@ -554,7 +527,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="RF-DETR" class="md-nav__button md-logo" aria-label="RF-DETR" data-md-component="logo">
       
-  <img src="../../assets/roboflow-logo.svg" alt="logo">
+  <img src="../../assets/roboflow-logo.svg" alt="RF-DETR" width="24" height="24">
 
     </a>
     RF-DETR
@@ -631,7 +604,7 @@
   <span class="md-ellipsis">
     
   
-    Getting Started
+    How to
   
 
     
@@ -644,6 +617,58 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    How to
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -715,58 +740,7 @@
     </li>
   
 
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    How to
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    How to
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+              
             
               
                 
@@ -788,10 +762,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
         
           
-          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
             
   
   
@@ -809,8 +783,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_1">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -883,6 +857,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../learn/run/keypoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Keypoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../learn/pretrained/" class="md-nav__link">
         
   
@@ -932,10 +934,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
             
   
   
@@ -953,8 +955,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1279,10 +1281,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -1300,8 +1302,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1359,10 +1361,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
         
           
-          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
             
   
   
@@ -1380,8 +1382,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1587,10 +1589,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
         
           
-          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
             
   
   
@@ -1608,8 +1610,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1815,10 +1817,98 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4" >
         
           
-          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Keypoint Models
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Keypoint Models
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/kp_preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RF-DETR Keypoint Preview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
             
   
   
@@ -1836,8 +1926,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1903,6 +1993,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/keypoint_train_config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Keypoint Train Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1931,10 +2049,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_5" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_6" >
         
           
-          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
             
   
   
@@ -1952,8 +2070,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2114,6 +2232,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#converting-a-jupytext-py-to-ipynb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Converting a jupytext .py to .ipynb
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#adding-a-notebook" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2171,26 +2300,36 @@
 <p>Cards on the cookbooks landing page are driven by <a href="../cards.yaml"><code>cards.yaml</code></a>. The MkDocs hook
 <code>docs/hooks/cookbooks_cards.py</code> loads that file and exposes it to <code>docs/theme/notebooks.html</code>,
 which renders each entry as a card via a Jinja loop.</p>
+<h2 id="converting-a-jupytext-py-to-ipynb">Converting a jupytext <code>.py</code> to <code>.ipynb</code><a class="headerlink" href="#converting-a-jupytext-py-to-ipynb" title="Permanent link">&para;</a></h2>
+<p>Cookbook source files live as jupytext percent-format <code>.py</code> scripts (e.g. <code>fine-tune_keypoints.py</code>) inside <code>docs/cookbooks/</code>. Each script requires at minimum a <strong>docs render copy</strong>; some also have a <code>notebooks/</code> copy for users who want to run it directly. Regenerate every existing copy after each edit:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Docs render copy (served by mkdocs-jupyter at /cookbooks/) — always required</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>jupytext<span class="w"> </span>--to<span class="w"> </span>notebook<span class="w"> </span>fine-tune_keypoints.py<span class="w"> </span>--output<span class="w"> </span>docs/cookbooks/fine-tune_keypoints.ipynb
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Runnable copy in notebooks/ — only for notebooks explicitly placed there</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>jupytext<span class="w"> </span>--to<span class="w"> </span>notebook<span class="w"> </span>fine-tune_keypoints.py<span class="w"> </span>--output<span class="w"> </span>notebooks/fine-tune_keypoints.ipynb
+</span></code></pre></div>
+<p>New notebooks default to the docs-only copy. Add a <code>notebooks/</code> copy only when there is an explicit need (e.g. a runnable starter notebook shipped with the repo). Omit <code>--execute</code> — notebooks are rendered statically by <code>mkdocs-jupyter</code> with <code>execute: false</code>, so pre-run outputs in the <code>.ipynb</code> are displayed as-is.</p>
+<p>If jupytext is not installed: <code>pip install jupytext</code> (or <code>uv add jupytext --dev</code>).</p>
 <h2 id="adding-a-notebook">Adding a notebook<a class="headerlink" href="#adding-a-notebook" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Add the <code>.ipynb</code> file here, named <code>release-demo_&lt;version&gt;.ipynb</code> (e.g. <code>release-demo_1-8.ipynb</code>).</li>
+<li>Add the <code>.ipynb</code> file here, named after its content (e.g. <code>custom-augmentations.ipynb</code>, <code>onnx-export.ipynb</code>).</li>
 <li>Add a new entry to <code>docs/cookbooks/cards.yaml</code> under the <code>cards:</code> list:</li>
 </ol>
 <!-- prettier-ignore -->
 
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">href</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">release-demo_X-Y/</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Short Title</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">LABEL1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">LABEL2</span><span class="p p-Indicator">]</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vX.Y.0</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GitHubUsername</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">One sentence describing what the notebook demonstrates.</span>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">href</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">content-slug/</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Short Title</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">LABEL1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">LABEL2</span><span class="p p-Indicator">]</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vX.Y.0</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GitHubUsername</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">One sentence describing what the notebook demonstrates.</span>
 </span></code></pre></div>
 <p>Available labels (reuse these to keep tags standardised): <code>TRAINING</code>, <code>AUGMENTATION</code>, <code>EXPORT</code>, <code>TFLITE</code>, <code>PYTORCH LIGHTNING</code>, <code>INFERENCE</code>, <code>SEGMENTATION</code>, <code>DEPLOY</code>.
 Current tag colours are assigned dynamically by the docs UI, so they may change if cards or labels are added or reordered.</p>
 <h2 id="removing-a-notebook">Removing a notebook<a class="headerlink" href="#removing-a-notebook" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Delete the <code>.ipynb</code> file.</li>
-<li>Remove the matching entry (the <code>- href: release-demo_X-Y/</code> block) from <code>docs/cookbooks/cards.yaml</code>.</li>
+<li>Remove the matching entry (the <code>- href: content-slug/</code> block) from <code>docs/cookbooks/cards.yaml</code>.</li>
 </ol>
 <h2 id="current-notebooks">Current notebooks<a class="headerlink" href="#current-notebooks" title="Permanent link">&para;</a></h2>
 <table>
@@ -2203,13 +2342,33 @@ Current tag colours are assigned dynamically by the docs UI, so they may change 
 </thead>
 <tbody>
 <tr>
-<td><code>release-demo_1-5.ipynb</code></td>
+<td><code>custom-augmentations.ipynb</code></td>
 <td>Custom Augmentations and Live Training Progress</td>
 <td>v1.5.0</td>
 </tr>
 <tr>
-<td><code>release-demo_1-6.ipynb</code></td>
-<td>PyTorch Lightning Building Blocks</td>
+<td><code>fine-tune_detection.ipynb</code></td>
+<td>Fine-Tune RF-DETR Object Detection</td>
+<td>v1.8.0</td>
+</tr>
+<tr>
+<td><code>fine-tune_keypoints.ipynb</code></td>
+<td>Fine-Tune RF-DETR Keypoint Detection</td>
+<td>v1.8.0</td>
+</tr>
+<tr>
+<td><code>fine-tune_segmentation.ipynb</code></td>
+<td>Fine-Tune RF-DETR Instance Segmentation</td>
+<td>v1.8.2</td>
+</tr>
+<tr>
+<td><code>inference-latency-benchmark.ipynb</code></td>
+<td>Inference Latency Benchmark</td>
+<td>v1.8.2</td>
+</tr>
+<tr>
+<td><code>pytorch-lightning.ipynb</code></td>
+<td>Training with PyTorch Lightning</td>
 <td>v1.6.0</td>
 </tr>
 </tbody>
@@ -2234,7 +2393,7 @@ Current tag colours are assigned dynamically by the docs UI, so they may change 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_datetime" title="May 7, 2026 20:47:26 UTC">2026-05-07 20:47:26</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_datetime" title="June 25, 2026 16:26:03 UTC">2026-06-25 16:26:03</span>
   </span>
 
     
